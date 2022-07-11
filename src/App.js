@@ -1,38 +1,48 @@
-
-import React from "react";
+import React, { useEffect } from "react";
 import './App.css'
-import Navbar from "./Components/Navbar/Navbar";
-import Intro from "./Components/Intro/Intro";
-import Services from "./Components/Service/Services";
-import Experience from "./Components/Experience/Experience";
-import Works from "./Components/Works/Works";
-import Portfolio from "./Components/Portfolio/Portfolio";
-import Testimonials from "./Components/Testimonials/Testimonials";
-import Contact from "./Components/Contact/Contact";
-import Footer from "./Components/Footer/Footer";
 
-import {themeContext} from './Context';
-import {useContext} from 'react';
+import 'react-toastify/dist/ReactToastify.css';
+import { Route, Routes, useNavigate } from 'react-router-dom'
+
+import { ToastContainer } from "react-toastify";
+import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
+import { useSelector } from "react-redux";
 
 function App() {
+  // const { loginUser } = useSelector(state => state.auth);
+   const navigate = useNavigate();
+  const isAuthenticate = localStorage.getItem('isAuthenticate');
+  console.log(isAuthenticate);
+  useEffect(() => {
+      if(isAuthenticate){
+      
+        }else
+        {
+          navigate('/')
+        }
 
-const theme = useContext(themeContext);
-const darkMode = theme.state.darkMode;  
-return (
-    <div className="App" style={{
-      background:darkMode?'black':'',
-      color : darkMode? 'white':''
+  }, []);
+  return (
 
-    }}>
-    <Navbar/>
-    <Intro/>
-    <Services/>
-    <Experience/>
-    <Works/>
-    <Portfolio/>
-    <Testimonials />
-    <Contact />
-    <Footer /> 
+
+    <div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }
