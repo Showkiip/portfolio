@@ -10,7 +10,8 @@ export const apiInstance = axios.create({
     timeout: 10000,
     headers: {
         'Accept': 'Application/json',
-        'Access-Control-Max-Age': 0
+        'Access-Control-Max-Age': 0,
+        'Authorization': localStorage.getItem('token')
     }
 })
 

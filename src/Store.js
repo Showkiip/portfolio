@@ -5,11 +5,13 @@ import storage from 'redux-persist/lib/storage'
 import thunk from 'redux-thunk';
 
 import authSlice from './reduxToolkit/auth/AuthSlice';
+import projectSlice from './reduxToolkit/projects/ProjectSlice';
 
 
 
 const reducers = combineReducers({
-    auth : authSlice
+    auth : authSlice,
+    projects : projectSlice
 
 });
 
