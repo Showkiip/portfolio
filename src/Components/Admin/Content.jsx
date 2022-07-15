@@ -5,10 +5,7 @@ import { Outlet } from 'react-router-dom';
 const Content = () => {
   return (
     <Stack sx={{ height: '85vh' }}>
-
-   
         <Outlet />
-
     </Stack>
   )
 }

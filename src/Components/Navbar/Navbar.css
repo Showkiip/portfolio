@@ -44,3 +44,17 @@
 {
     flex: 2;
 }
+
+li a 
+{
+    text-decoration: none;
+    color: white;
+}
+
+li a:hover 
+{
+  
+    cursor: pointer;
+    color: var(--orange);
+
+}

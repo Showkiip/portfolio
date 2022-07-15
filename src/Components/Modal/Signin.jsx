@@ -20,7 +20,6 @@ const Signin = ({ open, setOpen }) => {
     }
 
     console.log(data);
-
     dispatch(Login({ data, navigate }));
   }
 

@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -26,8 +26,9 @@ import { useSelector } from 'react-redux';
 
 
 
-function createData(project_title, demo_link, github_link, image) {
+function createData(id, project_title, demo_link, github_link, image) {
   return {
+    id,
     project_title,
     demo_link,
     github_link,
@@ -67,6 +68,12 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
+    id: 'id',
+    numeric: false,
+    disablePadding: true,
+    label: 'ID',
+  },
+  {
     id: 'project_title',
     numeric: false,
     disablePadding: true,
@@ -84,11 +91,17 @@ const headCells = [
     disablePadding: false,
     label: 'github_link',
   },
+  // {
+  //   id: 'image',
+  //   numeric: true,
+  //   disablePadding: false,
+  //   label: 'Image',
+  // },
   {
-    id: 'image',
+    id: 'edit',
     numeric: true,
     disablePadding: false,
-    label: 'Image',
+    label: 'Edit',
   },
 
 ];
@@ -204,9 +217,13 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
+// prject List start here
 const ListProjects = () => {
 
   const { getProject } = useSelector(state => state.projects);
+
+
+
 
   console.log(getProject);
   const [order, setOrder] = React.useState('asc');
@@ -215,7 +232,7 @@ const ListProjects = () => {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const rows = getProject.map(row =>  createData(row.project_title, row.demo_link, row.github_link, row.image)); 
+  const rows = getProject.map(row => createData(row.id, row.project_title, row.demo_link, row.github_link, row.image));
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -264,9 +281,9 @@ const ListProjects = () => {
     setDense(event.target.checked);
   };
 
-  const isSelected = (project_title) => selected.indexOf(project_title) !== -1;
+  const isSelected = (id) => selected.indexOf(id) !== -1;
 
-  
+
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -296,17 +313,17 @@ const ListProjects = () => {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row?.project_title);
+                  const isItemSelected = isSelected(row?.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row?.project_title)}
+                      onClick={(event) => handleClick(event, row?.id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row?.project_title}
+                      key={row?.id}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -324,12 +341,18 @@ const ListProjects = () => {
                         scope="row"
                         padding="none"
                       >
-                       {row?.project_title}
+                        {row?.id}
                       </TableCell>
-                   
+
+                      <TableCell align="right">{row?.project_title}</TableCell>
                       <TableCell align="right">{row?.demo_link}</TableCell>
                       <TableCell align="right">{row?.github_link}</TableCell>
-                      <TableCell align="right">{row?.image ? row?.image : 'null'}</TableCell>
+                      {/* <TableCell align="right">{row?.image ? row?.image : 'null'}</TableCell> */}
+                      <TableCell align="right" >
+                        <Button variant="contained" color="warning" size="small">
+                          Edit
+                        </Button>
+                      </TableCell>
                     </TableRow>
                   );
                 })}
@@ -359,7 +382,7 @@ const ListProjects = () => {
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
       />
-    </Box>
+    </Box >
   )
 }
 

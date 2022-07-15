@@ -1,37 +1,46 @@
 import React, { useState } from 'react'
-import { Box, Button, Stack, Typography, TextField, Select, FormControl, MenuItem, InputLabel } from '@mui/material';
+import { Box, Button, Stack, Typography, TextField, Select, FormControl, MenuItem, InputLabel, IconButton } from '@mui/material'
 
-import { styled } from '@mui/material/styles';
-import { SignalWifiStatusbarNull } from '@mui/icons-material';
-import { useDispatch } from 'react-redux';
-import { AddProject } from '../../../reduxToolkit/projects/ProjectApi';
+import { styled } from '@mui/material/styles'
+import { PhotoCamera, SignalWifiStatusbarNull } from '@mui/icons-material'
+import { useDispatch } from 'react-redux'
+import { AddProject } from '../../../reduxToolkit/projects/ProjectApi'
+import { useRef } from 'react'
 
 const CreateProject = () => {
 
-  const [projectTitle, setProjectTitle] = React.useState('');
+  const [projectTitle, setProjectTitle] = React.useState('')
   const [demoLink, setDemoLink] = useState('')
   const [githubLink, setGithubLink] = useState('')
-  const [image, setImage] = useState(SignalWifiStatusbarNull)
+  const [image, setImage] = useState(null)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
+  const inputRef = useRef()
+
   const Input = styled('input')({
     display: 'none',
-  });
+  })
 
   const handleChange = (event) => {
-    setProjectTitle(event.target.value);
-  };
+    setProjectTitle(event.target.value)
+  }
 
-  const handleCreateProject = () => {
+  const handleCreateProject = async () => {
     const data = {
       project_title: projectTitle,
       demo_link: demoLink,
       github_link: githubLink,
-      // image: image,
+      image,
     }
 
-    console.log(data);
-    dispatch(AddProject(data));
+    console.log(data)
+    let action = await dispatch(AddProject(data))
+    if (action?.payload?.status >= 200 && action?.payload?.status >= 200) {
+      setProjectTitle('')
+      setDemoLink('')
+      setGithubLink('')
+      setImage(null)
+    }
   }
 
   return (
@@ -95,7 +104,15 @@ const CreateProject = () => {
         <Box>
           <Stack direction="row" alignItems="center" spacing={2}>
             <label htmlFor="contained-button-file">
-              <Input accept="image/*" id="contained-button-file" type="file" onChange={(e) => { setImage(e.target.files[0]) }} />
+              <Input
+                accept="image/*"
+                id="contained-button-file"
+                type="file"
+                onChange={(e) => {
+                  console.log("e.target.files[0]===>", e.target.files[0])
+                  setImage(e.target.files[0])
+                }}
+              />
               <Button variant="contained" component="span">
                 Upload
               </Button>
@@ -103,12 +120,6 @@ const CreateProject = () => {
             <Typography>
               {image ? image.name : 'No file selected'}
             </Typography>
-            {/* <label htmlFor="icon-button-file">
-              <Input accept="image/*" id="icon-button-file" type="file" />
-              <IconButton color="primary" aria-label="upload picture" component="span">
-                <PhotoCamera />
-              </IconButton>
-            </label> */}
           </Stack>
         </Box>
       </Stack>

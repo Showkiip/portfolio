@@ -28,7 +28,6 @@ const projectSlice = createSlice({
             console.log("from getProject slice ", data)
             if (status >= 200 && status < 300) {
                 toast(data.message)
-              console.log(data)
                 state.getProject = data?.data
             }
             else if (status >= 400 && status < 500) {
