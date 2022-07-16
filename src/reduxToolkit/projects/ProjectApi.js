@@ -8,6 +8,8 @@ export const AddProject = createAsyncThunk("projects/createProject", async (para
     const {
         project_title,
         demo_link,
+        description,
+        project_name,
         github_link,
         image,
     } = params
@@ -16,6 +18,8 @@ export const AddProject = createAsyncThunk("projects/createProject", async (para
     formData.append('project_title', project_title)
     formData.append('demo_link', demo_link)
     formData.append('github_link', github_link)
+    formData.append('project_name', project_name)
+    formData.append('description', description)
     formData.append('image', image)
 
     let result = await apiInstance.post(`create/recent-project`, formData).then(function (response) {

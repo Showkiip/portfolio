@@ -12,6 +12,8 @@ const CreateProject = () => {
   const [projectTitle, setProjectTitle] = React.useState('')
   const [demoLink, setDemoLink] = useState('')
   const [githubLink, setGithubLink] = useState('')
+  const [projectName, setProjectName] = useState('')
+  const [description, setDescription] = useState('')
   const [image, setImage] = useState(null)
 
   const dispatch = useDispatch()
@@ -30,6 +32,8 @@ const CreateProject = () => {
       project_title: projectTitle,
       demo_link: demoLink,
       github_link: githubLink,
+      project_name: projectName,
+      description: description,
       image,
     }
 
@@ -38,6 +42,8 @@ const CreateProject = () => {
     if (action?.payload?.status >= 200 && action?.payload?.status >= 200) {
       setProjectTitle('')
       setDemoLink('')
+      setProjectName('')
+      setDescription('')
       setGithubLink('')
       setImage(null)
     }
@@ -78,7 +84,16 @@ const CreateProject = () => {
             </Select>
           </FormControl>
         </Box>
-
+        <Box>
+          <TextField
+            label="Project Name"
+            type="text"
+            placeholder='Enter Project Name Here'
+            focused
+            value={projectName}
+            onChange={(e) => { setProjectName(e.target.value) }}
+          />
+        </Box>
         <Box>
           <TextField
             label="demo_link"
@@ -95,10 +110,20 @@ const CreateProject = () => {
           <TextField
             label="github_link"
             type="text"
-            placeholder='Enter github_link'
+            placeholder='Enter github link here'
             focused
             value={githubLink}
             onChange={(e) => { setGithubLink(e.target.value) }}
+          />
+        </Box>
+        <Box>
+          <TextField
+            label="Description"
+            type="text"
+            placeholder='Enter Project Description Here'
+            focused
+            value={description}
+            onChange={(e) => { setDescription(e.target.value) }}
           />
         </Box>
         <Box>

@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetProject } from '../../reduxToolkit/projects/ProjectApi';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import baseURL, { imageURL } from '../../config/baseURL';
 
 const Portfolio = () => {
 
@@ -39,31 +40,54 @@ const Portfolio = () => {
         className="portfolio-slider"
       >
         {getProject.map((item, index) => {
+
+          console.log(`${imageURL}${item.image}`);
           return (
             <SwiperSlide key={index}>
-              <Link to={``} className='portfolio-card'>
+              <Box className='portfolio-card'>
                 {/* <img src={Sidebar} alt="" /> */}
-                <img src={Sidebar} alt="lazy" loading="lazy" />
+
+                <Link to={`/portfolio/${item.id}`}>
+                  <img src={`${imageURL}${item.image}`} alt="lazy" loading="lazy" style={{ marginBottom: '1rem' }} />
+                </Link>
                 <Stack direction="row">
                   <Typography
-                  sx={{
-                    ml: '21px', color: "#fff"
-                    , background: '#ffa9a9',
-                    fontSize: '14px', borderRadius: '20px',
-                    textTransform: 'capitalize'
-                }}
-                >
-                    {item.project_title}
-                  </Typography>
-                  <Typography color="black" >
-                    <Button ><Link to={item.github_link}> Github</Link></Button>
-                  </Typography>
-                </Stack>
-                <Typography color="black">
-                  Demo : {item.demo_link}
-                </Typography>
+                    sx={{
+                        ml: '1rem', color: "#000",
+                      fontSize: '25px', borderRadius: '20px',
+                      textTransform: 'capitalize',
+                      gap: '20px',
+                      texDecoration: 'none',
+                      fontWeight: 'bold',
+                    }}
+                  >
 
-              </Link>
+                    {item.project_title == 10 && 'Laravel'}
+                    {item.project_title == 20 && 'ReactJS'}
+                    {item.project_title == 30 && 'Laravel and ReactJS'}
+
+                  </Typography>
+                  <Typography sx={{
+                    ml: '21px',
+                    fontSize: '14px', borderRadius: '20px',
+                    textTransform: 'capitalize',
+                  }}>
+
+                    <Button variant='outlined' size='small' color='primary'>  <a href={item.github_link} target="_blank" style={{ textDecoration: 'none' }} rel="noreferrer" > Github </a></Button>
+                  </Typography>
+
+                  <Typography sx={{
+                    ml: '21px', fontSize: '14px', borderRadius: '20px',
+                    textTransform: 'capitalize', marginBottom: '1rem'
+                  }}>
+
+                    <Button variant='outlined' size='small' color='success'>  <a href={item.demo_link} target="_blank" style={{ textDecoration: 'none' }} rel="noreferrer" > Demo </a> </Button>
+                  </Typography>
+
+
+                </Stack>
+
+              </Box>
             </SwiperSlide>
           )
         })}

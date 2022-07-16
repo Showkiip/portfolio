@@ -43,6 +43,16 @@ const Sidebar = () => {
             dispatch(GetProject())
           }}> Project List</Link>
         </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', marginLeft: { lg: '20px' } }}>
+          <AddBoxIcon />
+          <Link to="/dashboard/socialLink"> Add Social Links</Link>
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', marginLeft: { lg: '20px' } }}>
+          <AddBoxIcon />
+          <Link to="/dashboard/socialLink/list" onClick={() => {
+            dispatch(GetProject())
+          }}> Social Link List</Link>
+        </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: { lg: '30px' }, marginTop: { lg: '20px' } }}>
           <Button variant="contained" color="primary" size="small" onClick={logout}> Logout</Button>
         </Box>

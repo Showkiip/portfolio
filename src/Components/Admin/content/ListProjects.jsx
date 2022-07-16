@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -22,7 +22,8 @@ import Paper from '@mui/material/Paper';
 import Switch from '@mui/material/Switch';
 import Tooltip from '@mui/material/Tooltip';
 import { visuallyHidden } from '@mui/utils';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetProject } from '../../../reduxToolkit/projects/ProjectApi';
 
 
 
@@ -220,10 +221,12 @@ EnhancedTableToolbar.propTypes = {
 // prject List start here
 const ListProjects = () => {
 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(GetProject());
+  }, [])
+
   const { getProject } = useSelector(state => state.projects);
-
-
-
 
   console.log(getProject);
   const [order, setOrder] = React.useState('asc');
@@ -344,11 +347,16 @@ const ListProjects = () => {
                         {row?.id}
                       </TableCell>
 
-                      <TableCell align="right">{row?.project_title}</TableCell>
-                      <TableCell align="right">{row?.demo_link}</TableCell>
-                      <TableCell align="right">{row?.github_link}</TableCell>
+                      <TableCell align="center">
+                          {row?.project_title == 10 && 'Laravel'}
+                          {row?.project_title == 20 && 'ReactJS'}
+                          {row?.project_title == 30 && 'Laravel and ReactJS'}
+                        
+                        </TableCell>
+                      <TableCell align="center">{row?.demo_link}</TableCell>
+                      <TableCell align="center">{row?.github_link}</TableCell>
                       {/* <TableCell align="right">{row?.image ? row?.image : 'null'}</TableCell> */}
-                      <TableCell align="right" >
+                      <TableCell align="center" >
                         <Button variant="contained" color="warning" size="small">
                           Edit
                         </Button>

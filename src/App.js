@@ -10,6 +10,9 @@ import Dashboard from "./pages/Dashboard";
 
 import CreateProject from './Components/Admin/content/CreateProject'
 import ListProjects from './Components/Admin/content/ListProjects'
+import CreateSocialLink from './Components/Admin/socialLink/CreateSocialLink'
+import ListSocailLink from './Components/Admin/socialLink/ListSocailLink'
+
 // import { useSelector } from "react-redux";
 
 function App() {
@@ -34,6 +37,8 @@ function App() {
         <Route path="dashboard" element={<Dashboard />}>
           <Route path="project" element={<CreateProject />} />
           <Route path="project/list" element={<ListProjects />} />
+          <Route path="socialLink" element={<CreateSocialLink />} />
+          <Route path="socialLink/list" element={<ListSocailLink />} />
         </Route>
 
       </Routes>
