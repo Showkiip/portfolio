@@ -5,7 +5,10 @@ const projectSlice = createSlice({
     name: "projects",
     initialState: {
         createProject: {},
-        getProject: []
+        getProject: [],
+        deleteProject:{},
+        editProject:{},
+        updateProject:{}
 
     },
     reducers: {},
@@ -32,6 +35,40 @@ const projectSlice = createSlice({
             }
             else if (status >= 400 && status < 500) {
 
+                toast(data.error)
+            }
+        },
+        "projects/deleteProject/fulfilled": (state, action) => {
+            const { data, status } = action.payload || {}
+            console.log("from deleteProject slice ", data)
+            if (status >= 200 && status < 300) {
+                toast(data.message)
+                state.deleteProject = data?.data
+            }
+            else if (status >= 400 && status < 500) {
+                toast(data.error)
+            }
+        },
+        "projects/editProject/fulfilled": (state, action) => {
+            const { data, status } = action.payload || {}
+            console.log("from editProject slice ", data)
+            if (status >= 200 && status < 300) {
+                toast(data.message)
+                state.editProject = data?.data
+            }
+            else if (status >= 400 && status < 500) {
+                toast(data.error)
+            }
+        },
+        "projects/updateProject/fulfilled": (state, action) => {
+            const { data, status } = action.payload || {}
+            console.log("from updateProject slice ", data)
+            if (status >= 200 && status < 300) {
+                toast(data.message)
+                
+                state.updateProject = data?.data
+            }
+            else if (status >= 400 && status < 500) {
                 toast(data.error)
             }
         },

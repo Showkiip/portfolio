@@ -71,9 +71,14 @@
     background: white;
 }
 
-.w-secCircle > img
+.w-secCircle  img
 {
-    transform: scale(0.6);
+   width: 3rem;
+}
+.w-secCircle img:hover
+{
+    cursor: pointer;
+    transform: scale(1.5, 1.5);
 }
 .w-backCircle
 {

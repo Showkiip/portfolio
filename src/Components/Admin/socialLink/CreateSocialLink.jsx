@@ -37,7 +37,19 @@ const CreateSocialLink = () => {
 
         }
 
-            dispatch(AddSocialLnk(data))
+     let action = await  dispatch(AddSocialLnk(data))
+            if (action?.payload?.status >= 200 && action?.payload?.status >= 200) {
+                setFacebook('')
+                setTwitter('')
+                setInstagram('')
+                setYoutube('')
+                setLinkedin('')
+                setGithub('')
+                setWebsite('')
+                setFiver('')
+                setUpwork('')
+                
+              }
        
     }
 

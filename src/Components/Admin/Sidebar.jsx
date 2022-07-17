@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { Stack, Avatar, Box, Typography, Divider, Button } from '@mui/material'
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useDispatch } from 'react-redux';
 import { GetProject } from '../../reduxToolkit/projects/ProjectApi';
 import { Logout } from '../../reduxToolkit/auth/AuthApi';
@@ -32,7 +33,9 @@ const Sidebar = () => {
       </Box>
       <Divider />
 
-      <Box mt="20px">
+      <Box mt="20px" 
+      
+      >
         <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', marginLeft: { lg: '20px' } }}>
           <AddBoxIcon />
           <Link to="/dashboard/project"> Add Project</Link>
@@ -47,14 +50,10 @@ const Sidebar = () => {
           <AddBoxIcon />
           <Link to="/dashboard/socialLink"> Add Social Links</Link>
         </Box>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', marginLeft: { lg: '20px' } }}>
-          <AddBoxIcon />
-          <Link to="/dashboard/socialLink/list" onClick={() => {
-            dispatch(GetProject())
-          }}> Social Link List</Link>
-        </Box>
+       
         <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: { lg: '30px' }, marginTop: { lg: '20px' } }}>
-          <Button variant="contained" color="primary" size="small" onClick={logout}> Logout</Button>
+          <ExitToAppIcon  variant="contained" />
+        <Link to={''} variant="contained" color="primary" size="small" onClick={logout}> Logout</Link>
         </Box>
       </Box>
     </Stack>

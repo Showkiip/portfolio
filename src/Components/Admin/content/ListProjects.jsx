@@ -23,7 +23,8 @@ import Switch from '@mui/material/Switch';
 import Tooltip from '@mui/material/Tooltip';
 import { visuallyHidden } from '@mui/utils';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetProject } from '../../../reduxToolkit/projects/ProjectApi';
+import { useNavigate } from 'react-router-dom';
+import { DeleteProject, EditProject, GetProject } from '../../../reduxToolkit/projects/ProjectApi';
 
 
 
@@ -68,27 +69,27 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  {
-    id: 'id',
-    numeric: false,
-    disablePadding: true,
-    label: 'ID',
-  },
+  // {
+  //   id: 'id',
+  //   numeric: false,
+  //   disablePadding: true,
+  //   label: 'ID',
+  // },
   {
     id: 'project_title',
     numeric: false,
-    disablePadding: true,
+    disablePadding: false,
     label: 'Project Title',
   },
   {
     id: 'demo_link',
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: 'demo_link',
   },
   {
     id: 'github_link',
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: 'github_link',
   },
@@ -100,7 +101,7 @@ const headCells = [
   // },
   {
     id: 'edit',
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: 'Edit',
   },
@@ -164,7 +165,18 @@ EnhancedTableHead.propTypes = {
 };
 
 const EnhancedTableToolbar = (props) => {
+
+  const dispatch = useDispatch();
   const { numSelected } = props;
+
+  const deleteProjects = (deleteID) => {
+    const data = {
+      projectID: deleteID[0],
+    }
+    console.log("asdasdasd", data);
+    dispatch(DeleteProject(data));
+    props.setSelected([]);
+  }
 
   return (
     <Toolbar
@@ -200,7 +212,15 @@ const EnhancedTableToolbar = (props) => {
       {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton>
-            <DeleteIcon />
+            <DeleteIcon
+              onClick={() => {
+                deleteProjects(props.deleteID);
+
+              }
+              }
+
+
+            />
           </IconButton>
         </Tooltip>
       ) : (
@@ -221,20 +241,39 @@ EnhancedTableToolbar.propTypes = {
 // prject List start here
 const ListProjects = () => {
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(GetProject());
-  }, [])
+  const { getProject, deleteProject } = useSelector(state => state.projects);
 
-  const { getProject } = useSelector(state => state.projects);
-
-  console.log(getProject);
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  console.log(selected);
+  useEffect(() => {
+    dispatch(GetProject());
+  }, [deleteProject])
+
+
+  const editProject = (editID) => {
+
+    const data = {
+      projectID: editID,
+    }
+    console.log("?>>>>>>>>>>", editID);
+    console.log("asdasdasd", data);
+
+      dispatch(EditProject(data));
+      navigate('/dashboard/project');
+    
+
+
+  }
+
+
   const rows = getProject.map(row => createData(row.id, row.project_title, row.demo_link, row.github_link, row.image));
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -244,19 +283,19 @@ const ListProjects = () => {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.project_title);
+      const newSelecteds = rows.map((n) => n.id);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, project_title) => {
-    const selectedIndex = selected.indexOf(project_title);
+  const handleClick = (event, id) => {
+    const selectedIndex = selected.indexOf(id);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, project_title);
+      newSelected = newSelected.concat(selected, id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -287,6 +326,7 @@ const ListProjects = () => {
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
 
+
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -295,7 +335,7 @@ const ListProjects = () => {
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length} deleteID={selected} setSelected={setSelected} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -319,10 +359,11 @@ const ListProjects = () => {
                   const isItemSelected = isSelected(row?.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
+
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row?.id)}
+
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -331,6 +372,7 @@ const ListProjects = () => {
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
+                          onClick={(event) => handleClick(event, row?.id)}
                           color="primary"
                           checked={isItemSelected}
                           inputProps={{
@@ -338,28 +380,33 @@ const ListProjects = () => {
                           }}
                         />
                       </TableCell>
-                      <TableCell
+                      {/* <TableCell
                         component="th"
                         id={labelId}
                         scope="row"
                         padding="none"
                       >
                         {row?.id}
-                      </TableCell>
+                      </TableCell> */}
 
-                      <TableCell align="center">
-                          {row?.project_title == 10 && 'Laravel'}
-                          {row?.project_title == 20 && 'ReactJS'}
-                          {row?.project_title == 30 && 'Laravel and ReactJS'}
-                        
-                        </TableCell>
-                      <TableCell align="center">{row?.demo_link}</TableCell>
-                      <TableCell align="center">{row?.github_link}</TableCell>
+                      <TableCell >
+                        {row?.project_title == 10 && 'Laravel'}
+                        {row?.project_title == 20 && 'ReactJS'}
+                        {row?.project_title == 30 && 'Laravel and ReactJS'}
+
+                      </TableCell>
+                      <TableCell >{row?.demo_link}</TableCell>
+                      <TableCell >{row?.github_link}</TableCell>
                       {/* <TableCell align="right">{row?.image ? row?.image : 'null'}</TableCell> */}
-                      <TableCell align="center" >
-                        <Button variant="contained" color="warning" size="small">
-                          Edit
-                        </Button>
+                      <TableCell  >
+                        <Button variant="contained" color="warning" size="small"
+                          onClick={() => {
+                            console.log("editID", row?.id);
+                            editProject(row?.id);
+                          }
+                          }>
+                          Edit</Button>
+
                       </TableCell>
                     </TableRow>
                   );

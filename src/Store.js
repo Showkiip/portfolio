@@ -6,12 +6,14 @@ import thunk from 'redux-thunk';
 
 import authSlice from './reduxToolkit/auth/AuthSlice';
 import projectSlice from './reduxToolkit/projects/ProjectSlice';
+import socialSlice from './reduxToolkit/socialLinks/SocialSlice';
 
 
 
 const reducers = combineReducers({
     auth : authSlice,
-    projects : projectSlice
+    projects : projectSlice,
+    socials : socialSlice
 
 });
 

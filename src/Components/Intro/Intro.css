@@ -39,17 +39,29 @@
     margin-top: 10px;
 }
 
-.i-button
+.i-button a
 {
-    width: 6rem;
-    height: 2rem;
+    text-decoration: none;
+    color: var(--white);
+    /* width: 6rem;
+    height: 2rem; */
 }
 
 .i-icons
 {
-    margin-top: 3rem;
+    /* margin-top:1rem; */
     display: flex;
-    gap: 0rem;
+    /* gap: 0rem; */
+}
+.i-icons img
+{
+    width: 5rem;
+    gap: 1.5rem;
+}
+.i-icons a img:hover
+{
+    cursor: pointer;
+    transform: scale(1.5, 1.5);
 }
 .i-icons >*
 {

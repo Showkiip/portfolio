@@ -3,9 +3,10 @@ import { Box, Button, Stack, Typography, TextField, Select, FormControl, MenuIte
 
 import { styled } from '@mui/material/styles'
 import { PhotoCamera, SignalWifiStatusbarNull } from '@mui/icons-material'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AddProject } from '../../../reduxToolkit/projects/ProjectApi'
 import { useRef } from 'react'
+import { useEffect } from 'react'
 
 const CreateProject = () => {
 
@@ -14,10 +15,13 @@ const CreateProject = () => {
   const [githubLink, setGithubLink] = useState('')
   const [projectName, setProjectName] = useState('')
   const [description, setDescription] = useState('')
-  const [image, setImage] = useState(null)
+  const [image, setImage] = useState('')
 
   const dispatch = useDispatch()
-  const inputRef = useRef()
+
+  const { editProject } = useSelector(state => state.projects);
+
+  console.log("selector >>>>>>>>>>>>>>>>", editProject)
 
   const Input = styled('input')({
     display: 'none',
@@ -45,9 +49,31 @@ const CreateProject = () => {
       setProjectName('')
       setDescription('')
       setGithubLink('')
-      setImage(null)
+      setImage('')
     }
   }
+
+  // for edit
+  useEffect(() => {
+    if (editProject) {
+      setProjectTitle(editProject.project_title)
+      setDemoLink(editProject.demo_link)
+      setProjectName(editProject.project_name)
+      setDescription(editProject.description)
+      setGithubLink(editProject.github_link)
+      setImage(editProject.image)
+    }
+    else {
+      setProjectTitle('')
+      setDemoLink('')
+      setProjectName('')
+      setDescription('')
+      setGithubLink('')
+      setImage('')
+    }
+  }
+    , [editProject])
+
 
   return (
 

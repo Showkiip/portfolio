@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { apiInstance } from "../../config/AxiosInstances";
 
 
-// add project api
+// add socail api
 export const AddSocialLnk = createAsyncThunk("socials/addSocialLnk", async (params, { dispatch, getState }) => {
 
     let result = await apiInstance.post(`create/social-link`, params).then(function (response) {
@@ -14,17 +14,15 @@ export const AddSocialLnk = createAsyncThunk("socials/addSocialLnk", async (para
     console.log("api", result)
     return { data, status }
 });
+// get social api
+export const GetSocialLinks = createAsyncThunk("socials/getSocialLinks", async (params, { dispatch, getState }) => {
 
-// // add project api
-// export const GetProject = createAsyncThunk("projects/getProject", async (params, { dispatch, getState }) => {
-
-//     let result = await apiInstance.get(`get-project`, params).then(function (response) {
-//         return response
-//     }).catch(function (error) {
-//         return error.response
-//     })
-//     const { data, status } = result
-//     console.log(result)
-
-//     return { data, status }
-// });
+    let result = await apiInstance.get(`get-socials`, params).then(function (response) {
+        return response
+    }).catch(function (error) {
+        return error.response
+    })
+    const { data, status } = result
+    console.log("api", result)
+    return { data, status }
+});
