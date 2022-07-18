@@ -40,18 +40,18 @@ const Intro = () => {
                 </div>
                 <div>
                     <button className='button i-button'>
-                        <a href={getSocialLinks.fiverr} target="_blank" rel="noopener noreferrer">
+                        <a href={getSocialLinks?.fiverr} target="_blank" rel="noopener noreferrer">
                             Hire me
                         </a>
                     </button>
                     <div className='i-icons'>
-                        <a href={getSocialLinks.github} target="_blank" rel="noopener noreferrer">
+                        <a href={getSocialLinks?.github} target="_blank" rel="noopener noreferrer">
                             <img src={Github} alt="" />
                         </a>
-                        <a href={getSocialLinks.linkedin} target="_blank" rel="noopener noreferrer">
+                        <a href={getSocialLinks?.linkedin} target="_blank" rel="noopener noreferrer">
                             <img src={Linkedin} alt="" />
                         </a>
-                        <a href={getSocialLinks.instagram} target="_blank" rel="noopener noreferrer">
+                        <a href={getSocialLinks?.instagram} target="_blank" rel="noopener noreferrer">
                             <img src={Instagram} alt="" />
                         </a>
 

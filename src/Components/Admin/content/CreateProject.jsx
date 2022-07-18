@@ -4,7 +4,7 @@ import { Box, Button, Stack, Typography, TextField, Select, FormControl, MenuIte
 import { styled } from '@mui/material/styles'
 import { PhotoCamera, SignalWifiStatusbarNull } from '@mui/icons-material'
 import { useDispatch, useSelector } from 'react-redux'
-import { AddProject } from '../../../reduxToolkit/projects/ProjectApi'
+import { AddProject, EditProject, UpdateProject } from '../../../reduxToolkit/projects/ProjectApi'
 import { useRef } from 'react'
 import { useEffect } from 'react'
 
@@ -21,7 +21,7 @@ const CreateProject = () => {
 
   const { editProject } = useSelector(state => state.projects);
 
-  console.log("selector >>>>>>>>>>>>>>>>", editProject)
+  console.log("edit prject >>>>>>>>>>>>>>>>", editProject)
 
   const Input = styled('input')({
     display: 'none',
@@ -31,7 +31,7 @@ const CreateProject = () => {
     setProjectTitle(event.target.value)
   }
 
-  const handleCreateProject = async () => {
+  const handleProject = async () => {
     const data = {
       project_title: projectTitle,
       demo_link: demoLink,
@@ -42,37 +42,30 @@ const CreateProject = () => {
     }
 
     console.log(data)
-    let action = await dispatch(AddProject(data))
-    if (action?.payload?.status >= 200 && action?.payload?.status >= 200) {
-      setProjectTitle('')
-      setDemoLink('')
-      setProjectName('')
-      setDescription('')
-      setGithubLink('')
-      setImage('')
+
+    if(editProject?.id){
+      const uData = {id: editProject.id}
+
+        dispatch(UpdateProject({data, uData}))
     }
+    else
+    {
+
+      dispatch(AddProject(data))
+    }
+  
   }
 
   // for edit
   useEffect(() => {
-    if (editProject) {
       setProjectTitle(editProject.project_title)
       setDemoLink(editProject.demo_link)
       setProjectName(editProject.project_name)
       setDescription(editProject.description)
       setGithubLink(editProject.github_link)
       setImage(editProject.image)
-    }
-    else {
-      setProjectTitle('')
-      setDemoLink('')
-      setProjectName('')
-      setDescription('')
-      setGithubLink('')
-      setImage('')
-    }
-  }
-    , [editProject])
+
+  }, [])
 
 
   return (
@@ -90,7 +83,7 @@ const CreateProject = () => {
         }} >
       </Box>
       <Typography variant="h4">
-        Create Project
+         Create Project
       </Typography>
       <Stack gap="30px" direction="row">
         <Box sx={{ minWidth: 200 }}>
@@ -176,7 +169,7 @@ const CreateProject = () => {
       </Stack>
 
 
-      <Button variant="contained" color="primary" onClick={() => handleCreateProject()}>
+      <Button variant="contained" color="primary" onClick={() => handleProject()}>
         Create
       </Button>
     </Stack>

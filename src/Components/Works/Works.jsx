@@ -42,28 +42,28 @@ const Works = () => {
             <div className='w-right'>
                 <div className='w-mainCircle'>
                     <div className='w-secCircle'>
-                        <a href={getSocialLinks.upwork} target="_blank" rel="noopener noreferrer">
+                        <a href={getSocialLinks?.upwork} target="_blank" rel="noopener noreferrer">
                             <img src={Upwork} alt="" />
 
                         </a>
                     </div>
                     <div className='w-secCircle'>
-                        <a href={getSocialLinks.fiverr} target="_blank" rel="noopener noreferrer">
+                        <a href={getSocialLinks?.fiverr} target="_blank" rel="noopener noreferrer">
                             <img src={Fiverr} alt="" />
                         </a>
                     </div>
                     <div className='w-secCircle'>
-                        <a href={getSocialLinks.linkedin} target="_blank" rel="noopener noreferrer">
+                        <a href={getSocialLinks?.linkedin} target="_blank" rel="noopener noreferrer">
                             <img src={LinkedLin} alt="" />
                         </a>
                     </div>
                     <div className='w-secCircle'>
-                        <a href={getSocialLinks.github} target="_blank" rel="noopener noreferrer">
+                        <a href={getSocialLinks?.github} target="_blank" rel="noopener noreferrer">
                             <img src={Github} alt="" />
                         </a>
                     </div>
                     <div className='w-secCircle'>
-                        <a href={getSocialLinks.facebook} target="_blank" rel="noopener noreferrer" >
+                        <a href={getSocialLinks?.facebook} target="_blank" rel="noopener noreferrer" >
                             <img src={Facebook} alt="" />
                         </a>
                     </div>

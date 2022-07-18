@@ -66,13 +66,17 @@ console.log('project >>>>>>>>>>>>>',projectID)
 
 // edit project api
 export const EditProject = createAsyncThunk("projects/editProject", async (params, { dispatch, getState }) => {
-    const { projectID } = params
+    const { projectID } = params.data
     let result = await apiInstance.get(`edit-project/${projectID}`, params).then(function (response) {
         return response
     }).catch(function (error) {
         return error.response
     })
     const { data, status } = result
+        console.log("status >>>>>>>>>>",status)
+        if(status === 200){
+            params?.navigate('/dashboard/project');
+        }
 
 
     console.log(result)

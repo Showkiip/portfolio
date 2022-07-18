@@ -266,9 +266,9 @@ const ListProjects = () => {
     console.log("?>>>>>>>>>>", editID);
     console.log("asdasdasd", data);
 
-      dispatch(EditProject(data));
-      navigate('/dashboard/project');
-    
+    dispatch(EditProject({ data, navigate }));
+
+
 
 
   }
