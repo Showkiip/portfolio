@@ -7,6 +7,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useDispatch } from 'react-redux';
 import { GetProject } from '../../reduxToolkit/projects/ProjectApi';
 import { Logout } from '../../reduxToolkit/auth/AuthApi';
+import { clearProjectEdit } from '../../reduxToolkit/projects/ProjectSlice';
 
 
 const Sidebar = () => {
@@ -38,7 +39,7 @@ const Sidebar = () => {
       >
         <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', marginLeft: { lg: '20px' } }}>
           <AddBoxIcon />
-          <Link to="/dashboard/project"> Add Project</Link>
+          <Link to="/dashboard/project"  onClick={()=> dispatch(clearProjectEdit())}> Add Project</Link>
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', marginLeft: { lg: '20px' } }}>
           <AddBoxIcon />

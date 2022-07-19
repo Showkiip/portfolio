@@ -28,10 +28,11 @@ import { DeleteProject, EditProject, GetProject } from '../../../reduxToolkit/pr
 
 
 
-function createData(id, project_title, demo_link, github_link, image) {
+function createData(id, project_title, project_name,demo_link, github_link, image) {
   return {
     id,
     project_title,
+    project_name,
     demo_link,
     github_link,
     image,
@@ -82,16 +83,22 @@ const headCells = [
     label: 'Project Title',
   },
   {
+    id: 'project_name',
+    numeric: false,
+    disablePadding: false,
+    label: 'Project Name',
+  },
+  {
     id: 'demo_link',
     numeric: false,
     disablePadding: false,
-    label: 'demo_link',
+    label: 'Demo',
   },
   {
     id: 'github_link',
     numeric: false,
     disablePadding: false,
-    label: 'github_link',
+    label: 'Github',
   },
   // {
   //   id: 'image',
@@ -103,7 +110,7 @@ const headCells = [
     id: 'edit',
     numeric: false,
     disablePadding: false,
-    label: 'Edit',
+    label: 'Action',
   },
 
 ];
@@ -263,8 +270,6 @@ const ListProjects = () => {
     const data = {
       projectID: editID,
     }
-    console.log("?>>>>>>>>>>", editID);
-    console.log("asdasdasd", data);
 
     dispatch(EditProject({ data, navigate }));
 
@@ -274,7 +279,7 @@ const ListProjects = () => {
   }
 
 
-  const rows = getProject.map(row => createData(row.id, row.project_title, row.demo_link, row.github_link, row.image));
+  const rows = getProject.map(row => createData(row.id, row.project_title, row.project_name, row.demo_link, row.github_link, row.image));
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -395,6 +400,7 @@ const ListProjects = () => {
                         {row?.project_title == 30 && 'Laravel and ReactJS'}
 
                       </TableCell>
+                      <TableCell >{row?.project_name}</TableCell>
                       <TableCell >{row?.demo_link}</TableCell>
                       <TableCell >{row?.github_link}</TableCell>
                       {/* <TableCell align="right">{row?.image ? row?.image : 'null'}</TableCell> */}

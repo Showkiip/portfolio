@@ -19,9 +19,8 @@ const CreateProject = () => {
 
   const dispatch = useDispatch()
 
+  // get single data of project when click on edit button
   const { editProject } = useSelector(state => state.projects);
-
-  console.log("edit prject >>>>>>>>>>>>>>>>", editProject)
 
   const Input = styled('input')({
     display: 'none',
@@ -32,40 +31,51 @@ const CreateProject = () => {
   }
 
   const handleProject = async () => {
-    const data = {
-      project_title: projectTitle,
-      demo_link: demoLink,
-      github_link: githubLink,
-      project_name: projectName,
-      description: description,
-      image,
+
+    let formData = new FormData()
+    formData.append('project_title', projectTitle)
+    formData.append('demo_link', demoLink)
+    formData.append('github_link', githubLink)
+    formData.append('project_name', projectName)
+    formData.append('description', description)
+    formData.append('image', image)
+    console.log(formData)
+
+    if (editProject?.id) {
+      const editID = {
+        id: editProject?.id
+      }
+      let projectID = editID?.id;
+      dispatch(UpdateProject({ formData, projectID }))
+    }
+    else {
+      dispatch(AddProject(formData))
     }
 
-    console.log(data)
-
-    if(editProject?.id){
-      const uData = {id: editProject.id}
-
-        dispatch(UpdateProject({data, uData}))
-    }
-    else
-    {
-
-      dispatch(AddProject(data))
-    }
-  
   }
 
   // for edit
   useEffect(() => {
+    if (editProject?.id) {
+
       setProjectTitle(editProject.project_title)
       setDemoLink(editProject.demo_link)
       setProjectName(editProject.project_name)
       setDescription(editProject.description)
       setGithubLink(editProject.github_link)
       setImage(editProject.image)
+    }
+    else {
+      setProjectTitle('')
+      setDemoLink('')
+      setProjectName('')
+      setDescription('')
+      setGithubLink('')
+      setGithubLink('')
+      setImage([])
+    }
 
-  }, [])
+  }, [editProject?.id])
 
 
   return (
@@ -83,7 +93,7 @@ const CreateProject = () => {
         }} >
       </Box>
       <Typography variant="h4">
-         Create Project
+        {editProject?.id ? 'Edit Project' : "Create Project"}
       </Typography>
       <Stack gap="30px" direction="row">
         <Box sx={{ minWidth: 200 }}>
@@ -170,7 +180,7 @@ const CreateProject = () => {
 
 
       <Button variant="contained" color="primary" onClick={() => handleProject()}>
-        Create
+        {editProject?.id ? "Update" : "Create"}
       </Button>
     </Stack>
 

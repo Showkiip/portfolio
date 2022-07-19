@@ -5,24 +5,8 @@ import { apiInstance } from "../../config/AxiosInstances";
 // add project api
 export const AddProject = createAsyncThunk("projects/createProject", async (params, { dispatch, getState }) => {
 
-    const {
-        project_title,
-        demo_link,
-        description,
-        project_name,
-        github_link,
-        image,
-    } = params
-
-    let formData = new FormData()
-    formData.append('project_title', project_title)
-    formData.append('demo_link', demo_link)
-    formData.append('github_link', github_link)
-    formData.append('project_name', project_name)
-    formData.append('description', description)
-    formData.append('image', image)
-
-    let result = await apiInstance.post(`create/recent-project`, formData).then(function (response) {
+    console.log("params", params)
+    let result = await apiInstance.post(`create/recent-project`, params).then(function (response) {
         return response
     }).catch(function (error) {
         return error.response
@@ -52,7 +36,7 @@ export const GetProject = createAsyncThunk("projects/getProject", async (params,
 export const DeleteProject = createAsyncThunk("projects/deleteProject", async (params, { dispatch, getState }) => {
 
     const { projectID } = params
-console.log('project >>>>>>>>>>>>>',projectID)
+    console.log('project >>>>>>>>>>>>>', projectID)
     let result = await apiInstance.delete(`delete-project/${projectID}`, params).then(function (response) {
         return response
     }).catch(function (error) {
@@ -73,10 +57,10 @@ export const EditProject = createAsyncThunk("projects/editProject", async (param
         return error.response
     })
     const { data, status } = result
-        console.log("status >>>>>>>>>>",status)
-        if(status === 200){
-            params?.navigate('/dashboard/project');
-        }
+    console.log("status >>>>>>>>>>", status)
+    if (status === 200) {
+        params?.navigate('/dashboard/project');
+    }
 
 
     console.log(result)
@@ -87,25 +71,14 @@ export const EditProject = createAsyncThunk("projects/editProject", async (param
 // update project api
 export const UpdateProject = createAsyncThunk("projects/updateProject", async (params, { dispatch, getState }) => {
 
-    const {
-        project_title,
-        demo_link,
-        description,
-        project_name,
-        github_link,
-        image,
-        projectID,
-    } = params
 
-    let formData = new FormData()
-    formData.append('project_title', project_title)
-    formData.append('demo_link', demo_link)
-    formData.append('github_link', github_link)
-    formData.append('project_name', project_name)
-    formData.append('description', description)
-    formData.append('image', image)
 
-    let result = await apiInstance.post(`create/update-project/${projectID}`, formData).then(function (response) {
+
+    let projectID = params?.projectID;
+
+
+    console.log('projectIDasdasdasd >>>>>>>>>>>>>', projectID)
+    let result = await apiInstance.post(`update-project/${projectID}`, params?.formData).then(function (response) {
         return response
     }).catch(function (error) {
         return error.response

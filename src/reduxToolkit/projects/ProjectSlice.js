@@ -6,19 +6,23 @@ const projectSlice = createSlice({
     initialState: {
         createProject: {},
         getProject: [],
-        deleteProject:{},
-        editProject:{},
-        updateProject:{}
+        deleteProject: {},
+        editProject: {},
+        updateProject: {}
 
     },
-    reducers: {},
+    reducers: {
+        clearProjectEdit: (state, action) => {
+            state.editProject = {}
+        }
+    },
     extraReducers: {
         "projects/createProject/fulfilled": (state, action) => {
             const { data, status } = action.payload || {}
             console.log("from createProject slice ", data)
             if (status >= 200 && status < 300) {
                 toast(data.message)
-              console.log(data)
+                console.log(data)
                 state.createProject = data?.data
             }
             else if (status >= 400 && status < 500) {
@@ -65,7 +69,7 @@ const projectSlice = createSlice({
             console.log("from updateProject slice ", data)
             if (status >= 200 && status < 300) {
                 toast(data.message)
-                
+
                 state.updateProject = data?.data
             }
             else if (status >= 400 && status < 500) {
@@ -79,6 +83,6 @@ const projectSlice = createSlice({
 
 })
 
-export const { } = projectSlice.actions;
+export const { clearProjectEdit } = projectSlice.actions;
 
 export default projectSlice.reducer;
