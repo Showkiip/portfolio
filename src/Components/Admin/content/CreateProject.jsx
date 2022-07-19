@@ -177,8 +177,6 @@ const CreateProject = () => {
           </Stack>
         </Box>
       </Stack>
-
-
       <Button variant="contained" color="primary" onClick={() => handleProject()}>
         {editProject?.id ? "Update" : "Create"}
       </Button>
