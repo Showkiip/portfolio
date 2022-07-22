@@ -4,16 +4,17 @@ import { toast } from 'react-toastify';
 const authSlice = createSlice({
     name: "auth",
     initialState: {
-    loginUser: {},
-    registerUser: {},
-    logoutUser:[]
+        loginUser: {},
+        registerUser: {},
+        logoutUser: []
 
 
     },
+    
     reducers: {
-        ChangeLoginUser: (state, action) => {
-            state.loginUser = action.payload;
-        },
+        // ChangeLoginUser: (state, action) => {
+        //     state.loginUser = action.payload;
+        // },
     },
     extraReducers: {
         "auth/loginUser/fulfilled": (state, action) => {
@@ -24,11 +25,15 @@ const authSlice = createSlice({
                 localStorage.setItem('token', data.data.token);
                 localStorage.setItem('user', JSON.stringify(data.data.user));
                 localStorage.setItem('isAuthenticate', true);
+
+             
+
                 state.loginUser = data?.data
             }
             else if (status >= 400 && status < 500) {
                 toast(data.error)
             }
+            console.log(state.loginUser)
         },
         "auth/registerUser/fulfilled": (state, action) => {
             const { data, status } = action.payload || {}
@@ -66,6 +71,8 @@ const authSlice = createSlice({
     },
 
 })
+
+
 
 export const {
     // ChangeLoginUser,

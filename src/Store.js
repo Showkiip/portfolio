@@ -17,6 +17,7 @@ const reducers = combineReducers({
 
 });
 
+console.log(authSlice)
 
 const persistConfig = {
     key: 'root',

@@ -10,7 +10,7 @@ export const Register = createAsyncThunk("auth/registerUser", async (params, { d
         return error.response
     })
     const { data, status } = result
-     console.log('backend data >>>>>>',data)
+    
     if (status >= 200 && status < 300) {
         params?.navigate(`/dashboard/${data.data.user.id}`);
     }
@@ -27,9 +27,9 @@ export const Login = createAsyncThunk("auth/loginUser", async (params, { dispatc
         return error.response
     })
     const { data, status } = result
-    console.log('backend data >>>>>>',data)
+
     if (status >= 200 && status < 300) {
-        params?.navigate(`/dashboard/${data.data.user.id}`);
+        params?.navigate(`/dashboard/${data?.data.user.id}`);
     }
     console.log(result)
 

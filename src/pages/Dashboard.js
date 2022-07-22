@@ -3,6 +3,7 @@ import { Box, Stack, Grid, Paper, styled } from '@mui/material';
 import Sidebar from '../Components/Admin/Sidebar';
 import Content from '../Components/Admin/Content';
 import Navbar from '../Components/Admin/Navbar';
+import { useSelector } from 'react-redux';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -13,6 +14,8 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 const Dashboard = () => {
+
+  const {loginUser} = useSelector(state => state.auth);
   return (
     <Box sx={{ flexGrow: 1 , backgroundColor: 'darkgray' }}>
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>

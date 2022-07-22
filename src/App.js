@@ -19,7 +19,11 @@ function App() {
   // const { loginUser } = useSelector(state => state.auth);
   const navigate = useNavigate();
   const isAuthenticate = localStorage.getItem('isAuthenticate');
-  console.log(isAuthenticate);
+  const user = { publicUser: true, isUser: false, guest: false }
+
+  const url = user.guest && '/' || user.publicUser && '/:profileUrl' || user.isUser && '/:id'
+    // `${user.isUser && '/:id'}`
+    // `${user.publicUser && '/:profileUrl'}`
   useEffect(() => {
     if (isAuthenticate) {
 
@@ -28,12 +32,12 @@ function App() {
     }
 
   }, []);
+
   return (
 
-      
     <div>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path={url} element={<Home />} />
         <Route path="dashboard/:id" element={<Dashboard />}>
           <Route path="project" element={<CreateProject />} />
           <Route path="project/list" element={<ListProjects />} />

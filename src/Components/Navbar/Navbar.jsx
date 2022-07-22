@@ -10,12 +10,17 @@ const Navbar = () => {
     const [open, setOpen] = useState(false)
     const [register, setRegister] = useState(false)
 
-    
-  
+    const isUser = JSON.parse(localStorage.getItem('user'))
+    console.log(isUser)
+
+
+
     return (
         <div className='n-wrapper'>
             <div className='n-left'>
-                <div className='n-name'>Showkat</div>
+                <div className='n-name'>
+                    {isUser ? <h1>{isUser.name}</h1> : <h1>Welcome</h1>}
+                </div>
                 {/* <Toggle /> */}
             </div>
             <div className='n-right'>
@@ -26,9 +31,17 @@ const Navbar = () => {
                         <li>Experience</li>
                         <li>Portfolio</li>
                         <li>Testimonials</li>
-                        <li> <a href="#" onClick={() => { setOpen(true) }}>  login</a></li>
-                        /
-                        <li><a href='#' onClick={() => { setRegister(true) }}>Signup</a></li>
+                        {
+                            !isUser &&
+                            <> <li> <a href="#" onClick={() => { setOpen(true) }}>  login</a></li>
+                                <li><a href='#' onClick={() => { setRegister(true) }}>Signup</a></li>
+                            </>
+                            // :
+                            // <>
+                            // <li> {isUser?.name} </li>
+                            // </>
+
+                        }
 
                     </ul>
                 </div>
