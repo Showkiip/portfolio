@@ -18,6 +18,8 @@ const Sidebar = () => {
     dispatch(Logout({ navigate })); 
   };
 
+  
+
   return (
     <Stack sx={{ height: '97vh' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'center' }} mb="13px" mt="10px">

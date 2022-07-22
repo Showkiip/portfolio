@@ -5,6 +5,7 @@ const authSlice = createSlice({
     name: "auth",
     initialState: {
     loginUser: {},
+    registerUser: {},
     logoutUser:[]
 
 
@@ -26,7 +27,20 @@ const authSlice = createSlice({
                 state.loginUser = data?.data
             }
             else if (status >= 400 && status < 500) {
-
+                toast(data.error)
+            }
+        },
+        "auth/registerUser/fulfilled": (state, action) => {
+            const { data, status } = action.payload || {}
+            console.log("from registerUser slice ", data)
+            if (status >= 200 && status < 300) {
+                toast(data.message)
+                localStorage.setItem('token', data.data.token);
+                localStorage.setItem('user', JSON.stringify(data.data.user));
+                localStorage.setItem('isAuthenticate', true);
+                state.registerUser = data?.data
+            }
+            else if (status >= 400 && status < 500) {
                 toast(data.error)
             }
         },
@@ -54,7 +68,7 @@ const authSlice = createSlice({
 })
 
 export const {
-    ChangeLoginUser,
+    // ChangeLoginUser,
 } = authSlice.actions;
 
 export default authSlice.reducer;

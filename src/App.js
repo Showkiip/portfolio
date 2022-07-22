@@ -30,11 +30,11 @@ function App() {
   }, []);
   return (
 
-
+      
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="dashboard" element={<Dashboard />}>
+        <Route path="dashboard/:id" element={<Dashboard />}>
           <Route path="project" element={<CreateProject />} />
           <Route path="project/list" element={<ListProjects />} />
           <Route path="socialLink" element={<CreateSocialLink />} />

@@ -22,7 +22,6 @@ const Portfolio = () => {
   }, [])
   const { getProject } = useSelector(state => state.projects)
 
-  console.log("get projects >>>>>>>>>>>>>>>>>",getProject);
 
   return (
     <div className='portfolio'>

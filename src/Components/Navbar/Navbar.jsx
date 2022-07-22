@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import Signin from '../Modal/Signin'
+import Signup from '../Modal/Signup'
 import Toggle from '../Toggle/Toggle'
 
 import './Navbar.css'
 
 const Navbar = () => {
-    const [open, setOpen] =  useState(false)
-    console.log(open);
+    const [open, setOpen] = useState(false)
+    const [register, setRegister] = useState(false)
+
+    
+  
     return (
         <div className='n-wrapper'>
             <div className='n-left'>
@@ -22,6 +27,9 @@ const Navbar = () => {
                         <li>Portfolio</li>
                         <li>Testimonials</li>
                         <li> <a href="#" onClick={() => { setOpen(true) }}>  login</a></li>
+                        /
+                        <li><a href='#' onClick={() => { setRegister(true) }}>Signup</a></li>
+
                     </ul>
                 </div>
                 <button className='button n-button'>
@@ -30,6 +38,7 @@ const Navbar = () => {
             </div>
 
             <Signin open={open} setOpen={setOpen} />
+            <Signup register={register} setRegister={setRegister} />
         </div>
 
     )

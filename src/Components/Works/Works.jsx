@@ -19,7 +19,6 @@ const Works = () => {
     }, [])
 
     const { getSocialLinks } = useSelector(state => state.socials)
-    console.log("sociallinke ..........>>>>>>>>>>", getSocialLinks);
     return (
 
         <div className='works'>
