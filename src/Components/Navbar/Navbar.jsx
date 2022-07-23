@@ -11,10 +11,7 @@ const Navbar = () => {
     const [register, setRegister] = useState(false)
 
     const isUser = JSON.parse(localStorage.getItem('user'))
-    console.log(isUser)
-
-
-
+    
     return (
         <div className='n-wrapper'>
             <div className='n-left'>

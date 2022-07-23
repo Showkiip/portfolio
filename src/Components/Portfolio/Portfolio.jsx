@@ -21,11 +21,12 @@ const Portfolio = () => {
     dispatch(GetProject());
   }, [])
   const { getProject } = useSelector(state => state.projects)
+  const { getUserByID } = useSelector(state => state.user)
 
+  console.log("get project ..........>>>>>>>>>>", getUserByID?.recent_projects);
 
   return (
     <div className='portfolio'>
-
       {/* heading */}
       <span>Recent Projects</span>
       <span>PortFolio</span>
@@ -38,7 +39,7 @@ const Portfolio = () => {
         grabCursor={true}
         className="portfolio-slider"
       >
-        {getProject.map((item, index) => {
+        {getUserByID?.recent_projects.map((item, index) => {
 
           console.log(`${imageURL}${item.image}`);
           return (
@@ -49,10 +50,16 @@ const Portfolio = () => {
                 <Link to={`/portfolio/${item.id}`}>
                   <img src={`${imageURL}${item.image}`} alt="lazy" loading="lazy" style={{ marginBottom: '1rem' }} />
                 </Link>
-                <Stack direction="row">
+                <Stack direction="row"
+
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}
+                >
                   <Typography
                     sx={{
-                        ml: '1rem', color: "#000",
+                      ml: '1rem', color: "#000",
                       fontSize: '25px', borderRadius: '20px',
                       textTransform: 'capitalize',
                       gap: '20px',
@@ -66,6 +73,24 @@ const Portfolio = () => {
                     {item.project_title == 30 && 'Laravel and ReactJS'}
 
                   </Typography>
+                  <Typography
+                    sx={{
+                      ml: '1rem', color: "#000",
+                      fontSize: '25px', borderRadius: '20px',
+                      textTransform: 'capitalize',
+                      gap: '20px',
+                      texDecoration: 'none',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    {item.project_name}
+                  </Typography>
+                </Stack>
+                <Stack direction="row"
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}>
                   <Typography sx={{
                     ml: '21px',
                     fontSize: '14px', borderRadius: '20px',

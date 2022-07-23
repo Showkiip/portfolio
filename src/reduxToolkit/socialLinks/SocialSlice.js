@@ -28,7 +28,7 @@ const socialSlice = createSlice({
             const { data, status } = action.payload || {}
             console.log("from getSocialLinks slice ", data)
             if (status >= 200 && status < 300) {
-                console.log(data)
+                console.log("get social............ ",data)
                 toast(data.message)
                 state.getSocialLinks = data?.data
             }

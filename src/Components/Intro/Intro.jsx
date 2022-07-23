@@ -12,19 +12,14 @@ import thumbup from '../../img/thumbup.png'
 import Crown from '../../img/crown.png'
 import glassesimoji from '../../img/glassesimoji.png'
 import FloatingDev from '../FloatingDiv/FloatingDev'
-import { GetSocialLinks } from '../../reduxToolkit/socialLinks/SocialApi'
+import { getUserByID } from '../../reduxToolkit/socialLinks/SocialApi'
 
 
 const Intro = () => {
 
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(GetSocialLinks());
-    }, [])
-
-    const { getSocialLinks } = useSelector(state => state.socials)
-    console.log("intro ..........>>>>>>>>>>", getSocialLinks);
+ 
+    const { getUserByID } = useSelector(state => state.user)
+    console.log("intro ..........>>>>>>>>>>", getUserByID);
 
 
     return (
@@ -32,26 +27,25 @@ const Intro = () => {
             <div className='i-left'>
                 <div className='i-name'>
                     <span>Hello! I Am</span>
-                    <span>Showkat Ali</span>
-                    <span>Full Stack developer with high of experience
-                        in web development. I am a self-taught developer
-                        and I am always looking for new challenges.
+                    <span>{getUserByID?.name || 'John doe'}</span>
+                    <span>
+                        {getUserByID?.description || 'I am a web developer'}
                     </span>
                 </div>
                 <div>
                     <button className='button i-button'>
-                        <a href={getSocialLinks?.fiverr} target="_blank" rel="noopener noreferrer">
+                        <a href={getUserByID?.fiverr} target="_blank" rel="noopener noreferrer">
                             Hire me
                         </a>
                     </button>
                     <div className='i-icons'>
-                        <a href={getSocialLinks?.github} target="_blank" rel="noopener noreferrer">
+                        <a href={getUserByID?.github} target="_blank" rel="noopener noreferrer">
                             <img src={Github} alt="" />
                         </a>
-                        <a href={getSocialLinks?.linkedin} target="_blank" rel="noopener noreferrer">
+                        <a href={getUserByID?.linkedin} target="_blank" rel="noopener noreferrer">
                             <img src={Linkedin} alt="" />
                         </a>
-                        <a href={getSocialLinks?.instagram} target="_blank" rel="noopener noreferrer">
+                        <a href={getUserByID?.instagram} target="_blank" rel="noopener noreferrer">
                             <img src={Instagram} alt="" />
                         </a>
 
