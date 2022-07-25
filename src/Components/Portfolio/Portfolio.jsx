@@ -16,11 +16,11 @@ import baseURL, { imageURL } from '../../config/baseURL';
 
 const Portfolio = () => {
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(GetProject());
-  }, [])
-  const { getProject } = useSelector(state => state.projects)
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(GetProject());
+  // }, [])
+  // const { getProject } = useSelector(state => state.projects)
   const { getUserByID } = useSelector(state => state.user)
 
   console.log("get project ..........>>>>>>>>>>", getUserByID?.recent_projects);
@@ -39,7 +39,8 @@ const Portfolio = () => {
         grabCursor={true}
         className="portfolio-slider"
       >
-        {getUserByID?.recent_projects.map((item, index) => {
+        
+        {getUserByID?.recent_projects?.map((item, index) => {
 
           console.log(`${imageURL}${item.image}`);
           return (

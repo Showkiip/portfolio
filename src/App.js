@@ -21,18 +21,21 @@ function App() {
   // const { loginUser } = useSelector(state => state.auth);
   const navigate = useNavigate();
   const isAuthenticate = localStorage.getItem('isAuthenticate');
+
   const user = { publicUser: true, isUser: false, guest: false }
  
   // check the user is guest , publicUser and profileUrl
-  // const url = user.guest && '/' || user.publicUser && '/:profileUrl' || user.isUser && '/:authID'
+
   // // `${user.isUser && '/:id'}`
   // // `${user.publicUser && '/:profileUrl'}`
   
+  const url = user.guest && '/' || user.publicUser && '/:profileUrl' || user.isUser && '/:authID'
 
   useEffect(() => {
     if (isAuthenticate) {
+      
     } else {
-      navigate('/john-doe')
+      navigate('/')
     }
   }, []);
 
@@ -41,6 +44,7 @@ function App() {
 
     <div>
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/:profileUrl" element={<Home />} />
         <Route path="dashboard/:id" element={<Dashboard />}>
           <Route path="project" element={<CreateProject />} />
@@ -48,9 +52,7 @@ function App() {
           <Route path="socialLink" element={<CreateSocialLink />} />
           <Route path="socialLink/list" element={<ListSocailLink />} />
         </Route>
-
       </Routes>
-
       <ToastContainer
         position="top-right"
         autoClose={4000}

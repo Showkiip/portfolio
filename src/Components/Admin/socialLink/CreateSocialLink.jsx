@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Button, Stack, Typography, TextField, Select, FormControl, MenuItem, InputLabel, IconButton } from '@mui/material'
 
 import { styled } from '@mui/material/styles'
 
-import { useDispatch } from 'react-redux'
-import { AddSocialLnk } from '../../../reduxToolkit/socialLinks/SocialApi'
+import { useDispatch, useSelector } from 'react-redux'
+// import { AddSocialLnk } from '../../../reduxToolkit/socialLinks/SocialApi'
 
 
 const CreateSocialLink = () => {
@@ -21,6 +21,10 @@ const CreateSocialLink = () => {
     const [upwork, setUpwork] = useState('')
 
 
+    const { editSocialLink } = useSelector(state => state.socials);
+
+    console.log(" edit social link ??????????", editSocialLink)
+
 
     const handleCreateProject = async () => {
         const data = {
@@ -34,155 +38,181 @@ const CreateSocialLink = () => {
             fiverr: fiverr,
             upwork: upwork,
 
-
         }
 
-     let action = await  dispatch(AddSocialLnk(data))
-            if (action?.payload?.status >= 200 && action?.payload?.status >= 200) {
-                setFacebook('')
-                setTwitter('')
-                setInstagram('')
-                setYoutube('')
-                setLinkedin('')
-                setGithub('')
-                setWebsite('')
-                setFiver('')
-                setUpwork('')
-                
-              }
-       
+        // dispatch(AddSocialLnk(data))
     }
+    // if (editSocialLink?.id) {
+    //     const editID = {
+    //         id: editSocialLink?.id
+    //     }
+    //     let editSocialLink = editID?.id;
+    //     // dispatch(UpdateProject({ formData, projectID }))
+    // }
+    // else {
+    //     // dispatch(AddProject(formData))
 
-        return (
-            <Stack alignItems="center"
-                justifyContent="center" gap="30px" position="relative">
-                <Box
-                    sx={{
-                        color: "red",
-                        position: 'absolute',
-                        top: '-20px',
-                        right: '0',
-                        cursor: 'pointer',
-                        fontWeight: 'bold',
-                    }} >
+    // }
+ 
+    // for edit
+    useEffect(() => {
+        if (editSocialLink?.id) {
+            setFacebook(editSocialLink.facebook)
+            setTwitter(editSocialLink.twitter)
+            setInstagram(editSocialLink.instagram)
+            setYoutube(editSocialLink.youtube)
+            setLinkedin(editSocialLink.linkedin)
+            setGithub(editSocialLink.github)
+            setWebsite(editSocialLink.website)
+            setFiver(editSocialLink.fiverr)
+            setUpwork(editSocialLink.upwork)
+
+        }
+        else {
+            setFacebook('')
+            setTwitter('')
+            setInstagram('')
+            setYoutube('')
+            setLinkedin('')
+            setGithub('')
+            setWebsite('')
+            setFiver('')
+            setUpwork('')
+        }
+
+    }, [editSocialLink?.id])
+
+
+    return (
+        <Stack alignItems="center"
+            justifyContent="center" gap="30px" position="relative">
+            <Box
+                sx={{
+                    color: "red",
+                    position: 'absolute',
+                    top: '-20px',
+                    right: '0',
+                    cursor: 'pointer',
+                    fontWeight: 'bold',
+                }} >
+            </Box>
+            <Typography variant="h4">
+                Add Socail Link
+            </Typography>
+            <Stack gap="30px" direction="row">
+
+                <Box>
+                    <TextField
+                        label="Facebook"
+                        type="text"
+                        placeholder='Enter Facebook link Here'
+                        focused
+                        value={facebook}
+                        onChange={(e) => { setFacebook(e.target.value) }}
+                    />
                 </Box>
-                <Typography variant="h4">
-                    Add Socail Link
-                </Typography>
-                <Stack gap="30px" direction="row">
-
-                    <Box>
-                        <TextField
-                            label="Facebook"
-                            type="text"
-                            placeholder='Enter Facebook link Here'
-                            focused
-                            value={facebook}
-                            onChange={(e) => { setFacebook(e.target.value) }}
-                        />
-                    </Box>
-                    <Box>
-                        <TextField
-                            label="Twitter"
-                            type="text"
-                            placeholder='Enter Twitter link  Here'
-                            focused
-                            value={twitter}
-                            onChange={(e) => { setTwitter(e.target.value) }}
-                        />
-                    </Box>
-                    </Stack>
-                    <Stack gap="30px" direction="row">
-                    <Box>
-                        <TextField
-                            label="instagram"
-                            type="text"
-                            placeholder='Enter instagram link here'
-                            focused
-                            value={instagram}
-                            onChange={(e) => { setInstagram(e.target.value) }}
-                        />
-                    </Box>
-                
-                
-                    <Box>
-                        <TextField
-                            label="youtube"
-                            type="text"
-                            placeholder='Enter youtube link here'
-                            focused
-                            value={youtube}
-                            onChange={(e) => { setYoutube(e.target.value) }}
-                            />
-                    </Box>
-                </Stack>
-                <Stack gap="30px" direction="row">
-                    <Box>
-                        <TextField
-                            label="linkedin"
-                            type="text"
-                            placeholder='Enter Project Description Here'
-                            focused
-                            value={linkedin}
-                            onChange={(e) => { setLinkedin(e.target.value) }}
-                            />
-                    </Box>
-                    <Box>
-                        <TextField
-                            label="github"
-                            type="text"
-                            placeholder='Enter Project Name Here'
-                            focused
-                            value={github}
-                            onChange={(e) => { setGithub(e.target.value) }}
-                            />
-                    </Box>
-                            </Stack>
-                            <Stack gap="30px" direction="row">
-                    <Box>
-                        <TextField
-                            label="website"
-                            type="text"
-                            placeholder='Enter Project Name Here'
-                            focused
-                            value={website}
-                            onChange={(e) => { setWebsite(e.target.value) }}
-                        />
-
-                    </Box>
-                    <Box>
-                        <TextField
-                            label="fiver"
-                            type="text"
-                            placeholder='Enter Project Name Here'
-                            focused
-                            value={fiverr}
-                            onChange={(e) => { setFiver(e.target.value) }}
-                        />
-
-                    </Box>
-                    </Stack>
-                    <Stack gap="30px" direction="row">
-                    <Box>
-                        <TextField
-                            label="upwork"
-                            type="text"
-                            placeholder='Enter Project Name Here'
-                            focused
-                            value={upwork}
-                            onChange={(e) => { setUpwork(e.target.value) }}
-                        />
-                    </Box>
-
-
-                </Stack>
-
-
-                <Button variant="contained" color="primary" onClick={() => handleCreateProject()}>
-                    Create
-                </Button>
+                <Box>
+                    <TextField
+                        label="Twitter"
+                        type="text"
+                        placeholder='Enter Twitter link  Here'
+                        focused
+                        value={twitter}
+                        onChange={(e) => { setTwitter(e.target.value) }}
+                    />
+                </Box>
             </Stack>
-        )
-    }
+            <Stack gap="30px" direction="row">
+                <Box>
+                    <TextField
+                        label="instagram"
+                        type="text"
+                        placeholder='Enter instagram link here'
+                        focused
+                        value={instagram}
+                        onChange={(e) => { setInstagram(e.target.value) }}
+                    />
+                </Box>
+
+
+                <Box>
+                    <TextField
+                        label="youtube"
+                        type="text"
+                        placeholder='Enter youtube link here'
+                        focused
+                        value={youtube}
+                        onChange={(e) => { setYoutube(e.target.value) }}
+                    />
+                </Box>
+            </Stack>
+            <Stack gap="30px" direction="row">
+                <Box>
+                    <TextField
+                        label="linkedin"
+                        type="text"
+                        placeholder='Enter Project Description Here'
+                        focused
+                        value={linkedin}
+                        onChange={(e) => { setLinkedin(e.target.value) }}
+                    />
+                </Box>
+                <Box>
+                    <TextField
+                        label="github"
+                        type="text"
+                        placeholder='Enter Project Name Here'
+                        focused
+                        value={github}
+                        onChange={(e) => { setGithub(e.target.value) }}
+                    />
+                </Box>
+            </Stack>
+            <Stack gap="30px" direction="row">
+                <Box>
+                    <TextField
+                        label="website"
+                        type="text"
+                        placeholder='Enter Project Name Here'
+                        focused
+                        value={website}
+                        onChange={(e) => { setWebsite(e.target.value) }}
+                    />
+
+                </Box>
+                <Box>
+                    <TextField
+                        label="fiver"
+                        type="text"
+                        placeholder='Enter Project Name Here'
+                        focused
+                        value={fiverr}
+                        onChange={(e) => { setFiver(e.target.value) }}
+                    />
+
+                </Box>
+            </Stack>
+            <Stack gap="30px" direction="row">
+                <Box>
+                    <TextField
+                        label="upwork"
+                        type="text"
+                        placeholder='Enter Project Name Here'
+                        focused
+                        value={upwork}
+                        onChange={(e) => { setUpwork(e.target.value) }}
+                    />
+                </Box>
+
+
+            </Stack>
+
+
+            <Button variant="contained" color="primary" onClick={() => handleCreateProject()}>
+                Create
+            </Button>
+        </Stack>
+    )
+}
 
 export default CreateSocialLink

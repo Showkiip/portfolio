@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetProject } from '../../reduxToolkit/projects/ProjectApi';
 import { Login, Logout } from '../../reduxToolkit/auth/AuthApi';
 import { clearProjectEdit } from '../../reduxToolkit/projects/ProjectSlice';
+import { EditSocialLink } from '../../reduxToolkit/socialLinks/SocialApi';
 
 
 const Sidebar = () => {
@@ -54,7 +55,7 @@ const Sidebar = () => {
       >
         <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', marginLeft: { lg: '20px' } }}>
           <AddBoxIcon />
-          <Link to={"/dashboard/"+getLoginUser.id+"/project"} onClick={() => dispatch(clearProjectEdit())}> Add Project</Link>
+          <Link to={"/dashboard/" + getLoginUser.id + "/project"} onClick={() => dispatch(clearProjectEdit())}> Add Project</Link>
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', marginLeft: { lg: '20px' } }}>
           <AddBoxIcon />
@@ -64,7 +65,11 @@ const Sidebar = () => {
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', marginLeft: { lg: '20px' } }}>
           <AddBoxIcon />
-          <Link to={"/dashboard/" + getLoginUser.id + "/socialLink"}> Add Social Links</Link>
+          <Link to={"/dashboard/" + getLoginUser.id + "/socialLink"}
+            onClick={() => {
+              dispatch(EditSocialLink())
+            }}
+          > Add Social Links</Link>
         </Box>
 
         <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: { lg: '30px' }, marginTop: { lg: '20px' } }}>
