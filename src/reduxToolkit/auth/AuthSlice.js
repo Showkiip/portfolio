@@ -57,7 +57,7 @@ const authSlice = createSlice({
                 toast(data.message)
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
-                localStorage.setItem('isAuthenticate', false);
+                localStorage.removeItem('isAuthenticate');
                 state.logoutUser = data?.data
             }
             else if (status >= 400 && status < 500) {

@@ -57,12 +57,10 @@ export const EditProject = createAsyncThunk("projects/editProject", async (param
         return error.response
     })
     const { data, status } = result
-    console.log("status >>>>>>>>>>", status)
+    console.log("edit project id >>>>>>>>>>", data)
     if (status === 200) {
-        params?.navigate('/dashboard/project');
+        params?.navigate(`/dashboard/${data?.id}/project`);
     }
-
-
     console.log(result)
 
     return { data, status }
@@ -71,11 +69,7 @@ export const EditProject = createAsyncThunk("projects/editProject", async (param
 // update project api
 export const UpdateProject = createAsyncThunk("projects/updateProject", async (params, { dispatch, getState }) => {
 
-
-
-
     let projectID = params?.projectID;
-
 
     console.log('projectIDasdasdasd >>>>>>>>>>>>>', projectID)
     let result = await apiInstance.post(`update-project/${projectID}`, params?.formData).then(function (response) {
@@ -84,8 +78,6 @@ export const UpdateProject = createAsyncThunk("projects/updateProject", async (p
         return error.response
     })
     const { data, status } = result
-
-
     console.log(result)
 
     return { data, status }

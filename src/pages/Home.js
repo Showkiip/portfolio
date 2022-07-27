@@ -18,19 +18,14 @@ import { GetUserByID } from '../reduxToolkit/publicUser/user/userApi';
 const Home = () => {
     const theme = useContext(themeContext);
     const darkMode = theme.state.darkMode;
+
     const { profileUrl } = useParams();
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log(profileUrl)
-        // const url = profileUrl ? `/${profileUrl}` : '/'
-        // window.location.href = url
         dispatch(GetUserByID(profileUrl))
 
     }, [])
-
-
-
     return (
         <div className="App" style={{
             background: darkMode ? 'black' : '',

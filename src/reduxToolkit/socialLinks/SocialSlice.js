@@ -5,7 +5,8 @@ const socialSlice = createSlice({
     name: "socials",
     initialState: {
         addSocialLnk: {},
-        getSocialLinks: {},
+        editSocialLink: {},
+        updateSocialLnk: {},
        
 
     },
@@ -23,14 +24,27 @@ const socialSlice = createSlice({
                 toast(data.error)
             }
         },
-    
-        "socials/getSocialLinks/fulfilled": (state, action) => {
+        "socials/updateSocialLnk/fulfilled": (state, action) => {
             const { data, status } = action.payload || {}
-            console.log("from getSocialLinks slice ", data)
+            console.log("from updateSocialLnk slice ", data)
             if (status >= 200 && status < 300) {
-                console.log("get social............ ",data)
+                console.log(data)
                 toast(data.message)
-                state.getSocialLinks = data?.data
+                state.updateSocialLnk = data?.data
+            }
+            else if (status >= 400 && status < 500) {
+                toast(data.error)
+            }
+        },
+    
+        // public 
+        "socials/editSocialLink/fulfilled": (state, action) => {
+            const { data, status } = action.payload || {}
+            console.log("from editSocialLink slice ", data)
+            if (status >= 200 && status < 300) {
+                console.log(" editSocialLink............ ",data)
+                toast(data.message)
+                state.editSocialLink = data?.data
             }
             else if (status >= 400 && status < 500) {
                 toast(data.error)

@@ -273,12 +273,7 @@ const ListProjects = () => {
 
     dispatch(EditProject({ data, navigate }));
 
-
-
-
   }
-
-
   const rows = getProject.map(row => createData(row.id, row.project_title, row.project_name, row.demo_link, row.github_link, row.image));
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';

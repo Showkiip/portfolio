@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { apiInstance } from "../../../config/AxiosInstances";
 
 //get   user by url
-export const GetUserByID = createAsyncThunk("auth/getUserByID", async (params, { dispatch, getState }) => {
+export const GetUserByID = createAsyncThunk("user/getUserByID", async (params, { dispatch, getState }) => {
   
 
     console.log("params", params)

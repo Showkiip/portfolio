@@ -4,6 +4,7 @@ import { Box, Button, Stack, Typography, TextField, Select, FormControl, MenuIte
 import { styled } from '@mui/material/styles'
 
 import { useDispatch, useSelector } from 'react-redux'
+import { AddSocialLink, UpdateSocialLink } from '../../../reduxToolkit/socialLinks/SocialApi'
 // import { AddSocialLnk } from '../../../reduxToolkit/socialLinks/SocialApi'
 
 
@@ -40,20 +41,16 @@ const CreateSocialLink = () => {
 
         }
 
-        // dispatch(AddSocialLnk(data))
-    }
-    // if (editSocialLink?.id) {
-    //     const editID = {
-    //         id: editSocialLink?.id
-    //     }
-    //     let editSocialLink = editID?.id;
-    //     // dispatch(UpdateProject({ formData, projectID }))
-    // }
-    // else {
-    //     // dispatch(AddProject(formData))
+        if (editSocialLink?.facebook) {
+            dispatch(UpdateSocialLink({ data }))
+        }
+        else {
+            dispatch(AddSocialLink(data))
 
-    // }
- 
+        }
+
+    }
+
     // for edit
     useEffect(() => {
         if (editSocialLink?.id) {
@@ -97,7 +94,7 @@ const CreateSocialLink = () => {
                 }} >
             </Box>
             <Typography variant="h4">
-                Add Socail Link
+                {editSocialLink?.id ? 'Update Social Link' : 'Add Social Link'}
             </Typography>
             <Stack gap="30px" direction="row">
 
@@ -203,13 +200,9 @@ const CreateSocialLink = () => {
                         onChange={(e) => { setUpwork(e.target.value) }}
                     />
                 </Box>
-
-
             </Stack>
-
-
             <Button variant="contained" color="primary" onClick={() => handleCreateProject()}>
-                Create
+                {editSocialLink?.id ? 'Update' : 'Create'}
             </Button>
         </Stack>
     )

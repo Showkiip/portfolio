@@ -28,12 +28,10 @@ function App() {
 
   // // `${user.isUser && '/:id'}`
   // // `${user.publicUser && '/:profileUrl'}`
-  
   const url = user.guest && '/' || user.publicUser && '/:profileUrl' || user.isUser && '/:authID'
-
   useEffect(() => {
     if (isAuthenticate) {
-      
+        
     } else {
       navigate('/')
     }

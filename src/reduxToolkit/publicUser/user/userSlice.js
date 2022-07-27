@@ -2,12 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import { toast } from 'react-toastify';
 
 const userSlice = createSlice({
-    name: "auth",
+    name: "user",
     initialState: {
         getUserByID: {},
-
-
-
     },
 
     reducers: {
@@ -16,7 +13,7 @@ const userSlice = createSlice({
         // },
     },
     extraReducers: {
-        "auth/getUserByID/fulfilled": (state, action) => {
+        "user/getUserByID/fulfilled": (state, action) => {
             const { data, status } = action.payload || {}
             console.log("from getUserByID slice ", data)
             if (status >= 200 && status < 300) {
