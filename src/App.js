@@ -15,6 +15,7 @@ import ListSocailLink from './Components/Admin/socialLink/ListSocailLink'
 import { useDispatch } from "react-redux";
 import { useParams } from 'react-router-dom'
 import { GetUserByID } from "./reduxToolkit/publicUser/user/userApi";
+import AdminDashboard from "./pages/AdminDashboard";
 // import { useSelector } from "react-redux";
 
 function App() {
@@ -44,11 +45,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:profileUrl" element={<Home />} />
-        <Route path="dashboard/:id" element={<Dashboard />}>
-          <Route path="project" element={<CreateProject />} />
+        <Route path="dashboard/:id" element={<AdminDashboard />}>
+          {/* <Route path="project" element={<CreateProject />} />
           <Route path="project/list" element={<ListProjects />} />
           <Route path="socialLink" element={<CreateSocialLink />} />
-          <Route path="socialLink/list" element={<ListSocailLink />} />
+          <Route path="socialLink/list" element={<ListSocailLink />} /> */}
         </Route>
       </Routes>
       <ToastContainer
