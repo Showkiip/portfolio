@@ -42,7 +42,7 @@ export default function Dashboard() {
           <Transfers />
           <Profile /> */}
           <Content />
-
+          
         </div>
       </div>
     </Section>
