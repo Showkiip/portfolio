@@ -10,10 +10,41 @@ import { FiLogOut } from "react-icons/fi";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { VscChromeClose } from "react-icons/vsc";
 import scrollreveal from "scrollreveal";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { Logout } from "../../../reduxToolkit/auth/AuthApi";
+import { GetProject } from "../../../reduxToolkit/projects/ProjectApi";
+import { EditSocialLink } from "../../../reduxToolkit/socialLinks/SocialApi";
+
+import PersonPinIcon from '@mui/icons-material/PersonPin';
 export default function Sidebar() {
+
+
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const logout = () => {
+    dispatch(Logout({ navigate }));
+  };
+
+  const [getLoginUser, setGetLoginUser] = useState({})
+
+
+  useEffect(() => {
+    const data = localStorage.getItem('user');
+    const loginUser = JSON.parse(data);
+    setGetLoginUser(loginUser);
+    // console.log("local storage ........>>>>>>>>", data);
+  }, [])
+
+  console.log("getLoginUser ........>>>>>>>>", getLoginUser.id);
+
+
+
   const [currentLink, setCurrentLink] = useState(1);
   const [navbarState, setNavbarState] = useState(false);
   const html = document.querySelector("html");
+
   html.addEventListener("click", () => setNavbarState(false));
 
   useEffect(() => {
@@ -47,8 +78,8 @@ export default function Sidebar() {
       <Section>
         <div className="top">
           <div className="brand">
-            <FaTaxi />
-            <span>MY TAXI</span>
+            <PersonPinIcon />
+            <span>Portfolio</span>
           </div>
           <div className="toggle">
             {navbarState ? (
@@ -77,28 +108,33 @@ export default function Sidebar() {
                 className={currentLink === 2 ? "active" : "none"}
                 onClick={() => setCurrentLink(2)}
               >
-                <a href="/rider">
+                <Link to={"/dashboard/" + getLoginUser.id + "/project"}>
                   <RiDashboard2Fill />
-                  <span> Riders</span>
-                </a>
+                  <span>Create  Project</span>
+                </Link>
               </li>
               <li
                 className={currentLink === 3 ? "active" : "none"}
                 onClick={() => setCurrentLink(3)}
               >
-                <a href="#">
+                <Link to={"/dashboard/" + getLoginUser.id + "/project/list"} onClick={() => {
+                  dispatch(GetProject())
+                }}>
                   <FaAddressCard />
-                  <span> Payment Details</span>
-                </a>
+                  <span> List Project</span>
+                </Link>
               </li>
               <li
                 className={currentLink === 4 ? "active" : "none"}
                 onClick={() => setCurrentLink(4)}
               >
-                <a href="#">
+                <Link to={"/dashboard/" + getLoginUser.id + "/socialLink"}
+                  onClick={() => {
+                    dispatch(EditSocialLink())
+                  }}>
                   <GiTwirlCenter />
-                  <span> Learning Center</span>
-                </a>
+                  <span> Social Link</span>
+                </Link>
               </li>
               <li
                 className={currentLink === 5 ? "active" : "none"}
@@ -120,12 +156,13 @@ export default function Sidebar() {
               </li>
             </ul>
           </div>
-        </div>
-        <div className="logout">
-          <a href="#">
-            <FiLogOut />
-            <span className="logout">Logout</span>
-          </a>
+
+          <div className="logout">
+            <a href="#" onClick={logout}>
+              <FiLogOut />
+              <span className="logout">Logout</span>
+            </a>
+          </div>
         </div>
       </Section>
       <ResponsiveNav state={navbarState} className={navbarState ? "show" : ""}>

@@ -8,14 +8,18 @@ import { ToastContainer } from "react-toastify";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 
-import CreateProject from './Components/Admin/content/CreateProject'
-import ListProjects from './Components/Admin/content/ListProjects'
-import CreateSocialLink from './Components/Admin/socialLink/CreateSocialLink'
-import ListSocailLink from './Components/Admin/socialLink/ListSocailLink'
+// import CreateProject from './Components/Admin/content/CreateProject'
+// import ListProjects from './Components/Admin/content/ListProjects'
+// import CreateSocialLink from './Components/Admin/socialLink/CreateSocialLink'
+// import ListSocailLink from './Components/Admin/socialLink/ListSocailLink'
 import { useDispatch } from "react-redux";
 import { useParams } from 'react-router-dom'
 import { GetUserByID } from "./reduxToolkit/publicUser/user/userApi";
 import AdminDashboard from "./pages/AdminDashboard";
+import Analytics from "./Components/AdminDashboard/components/Analytics";
+import CreateProject from "./Components/AdminDashboard/components/projects/CreateProject";
+import ListProjects from "./Components/AdminDashboard/components/projects/ListProjects";
+import CreateSocialLink from "./Components/AdminDashboard/components/socialLink/CreateSocialLink";
 // import { useSelector } from "react-redux";
 
 function App() {
@@ -46,10 +50,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/:profileUrl" element={<Home />} />
         <Route path="dashboard/:id" element={<AdminDashboard />}>
-          {/* <Route path="project" element={<CreateProject />} />
-          <Route path="project/list" element={<ListProjects />} />
-          <Route path="socialLink" element={<CreateSocialLink />} />
-          <Route path="socialLink/list" element={<ListSocailLink />} /> */}
+          <Route path="project" element={<CreateProject />} />
+           <Route path="project/list" element={<ListProjects />} />
+           <Route path="socialLink" element={<CreateSocialLink />} />
+          {/*   <Route path="socialLink/list" element={<ListSocailLink />} /> */}
         </Route>
       </Routes>
       <ToastContainer

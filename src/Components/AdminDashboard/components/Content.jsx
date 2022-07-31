@@ -1,11 +1,16 @@
+import { Stack, Box, Typography } from '@mui/material'
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import { Outlet } from 'react-router-dom';
 
 const Content = () => {
+  const { loginUser } = useSelector(state => state.auth);
+
+    console.log("auth user>>>>>>>>", loginUser)
   return (
-    <div>
-          <Outlet />
-    </div>
+    <Stack sx={{ height: '85vh' }}>
+        <Outlet />
+    </Stack>
   )
 }
 
