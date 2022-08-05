@@ -25,9 +25,7 @@ export default function AdminDashboard() {
             <Sidebar />
           </Item>
         </Grid>
-        <Grid item xs={10} sm={12} md={10}
-
-        >
+        <Grid item xs={10} sm={12} md={10} >
           <Stack gap={2}
             sx={{
               marginLeft: '18px',
@@ -37,7 +35,8 @@ export default function AdminDashboard() {
               <Navbar />
             </Item>
             <Item
-            >
+                  backgroundColor={'#212121'}
+                  >
               <Content />
             </Item>
           </Stack>

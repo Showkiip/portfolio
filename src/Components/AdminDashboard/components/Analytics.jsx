@@ -9,7 +9,7 @@ export default function Analytics() {
   return (
     <Section>
       <div className="analytic ">
-        <div className="content">
+        <div className="content"> 
           <h5>Spent this month</h5>
           <h2>$682.5</h2>
         </div>

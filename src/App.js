@@ -20,6 +20,7 @@ import Analytics from "./Components/AdminDashboard/components/Analytics";
 import CreateProject from "./Components/AdminDashboard/components/projects/CreateProject";
 import ListProjects from "./Components/AdminDashboard/components/projects/ListProjects";
 import CreateSocialLink from "./Components/AdminDashboard/components/socialLink/CreateSocialLink";
+import Profile from "./Components/AdminDashboard/components/Profile";
 // import { useSelector } from "react-redux";
 
 function App() {
@@ -28,18 +29,24 @@ function App() {
   const isAuthenticate = localStorage.getItem('isAuthenticate');
 
   const user = { publicUser: true, isUser: false, guest: false }
- 
+
   // check the user is guest , publicUser and profileUrl
 
   // // `${user.isUser && '/:id'}`
   // // `${user.publicUser && '/:profileUrl'}`
-  const url = user.guest && '/' || user.publicUser && '/:profileUrl' || user.isUser && '/:authID'
+  // const url = user.guest && '/' || user.publicUser && '/:profileUrl' || user.isUser && '/:authID'
+  const { profileUrl } = useParams();
+  console.log('ur >>>>>>>>>>>>>', profileUrl)
   useEffect(() => {
     if (isAuthenticate) {
-        
-    } else {
-      navigate('/')
+
     }
+    else if (profileUrl) {
+      navigate('/profileUrl')
+    }
+    // else {
+    //   navigate('/')
+    // }
   }, []);
 
 
@@ -51,9 +58,9 @@ function App() {
         <Route path="/:profileUrl" element={<Home />} />
         <Route path="dashboard/:id" element={<AdminDashboard />}>
           <Route path="project" element={<CreateProject />} />
-           <Route path="project/list" element={<ListProjects />} />
-           <Route path="socialLink" element={<CreateSocialLink />} />
-          {/*   <Route path="socialLink/list" element={<ListSocailLink />} /> */}
+          <Route path="project/list" element={<ListProjects />} />
+          <Route path="socialLink" element={<CreateSocialLink />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>
       <ToastContainer
