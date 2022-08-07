@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import image from "../../../assets/profile.jpeg";
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { imageURL } from "../../../config/baseURL";
 import { Button, Card, CardActions, CardContent, CardMedia, FormControl, InputLabel, Modal, Select, Stack, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import EditProfile from "./modal/EditProfile";
+import { UpdateProfile } from "../../../reduxToolkit/auth/AuthApi";
 
 const style = {
   position: 'absolute',
@@ -27,14 +28,64 @@ export default function Profile() {
     display: 'none',
   })
 
+  const dispatch = useDispatch()
+  const [image, setImage] = useState(null)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [address, setAddress] = useState('')
+  const [phone, setPhone] = useState('')
+  const [city, setCity] = useState('')
+  const [state, setState] = useState('')
+  const [country, setCountry] = useState('')
+  const [zip, setZip] = useState('')
+  const [description, setDescription] = useState('')
 
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+const handleProfile = async () => {
+
+  let formData = new FormData();
+  formData.append('image', image)
+  formData.append('name', name)
+  formData.append('email', email)
+  formData.append('address', address)
+  formData.append('phone', phone)
+  formData.append('city', city)
+  formData.append('state', state)
+  formData.append('country', country)
+  formData.append('zip', zip)
+  formData.append('description', description)
+    console.log(formData)
+
+  dispatch(UpdateProfile({ formData }));
+}
   const { userProfile } = useSelector(state => state.auth);
 
   console.log(" userProfile ??????????", userProfile)
 
+  useEffect(()=> {
+      if(userProfile) {
+          setImage(userProfile?.image)
+          setName(userProfile?.name)
+          setEmail(userProfile?.email)
+          setAddress(userProfile?.address)
+          setPhone(userProfile?.phone)
+          setCity(userProfile?.city)
+          setState(userProfile?.state)
+          setCountry(userProfile?.country)
+          setZip(userProfile?.zip)
+          setDescription(userProfile?.description)
+      } else {
+          setImage(null)
+          setName('')
+          setEmail('')
+          setAddress('')
+          setPhone('')
+          setCity('')
+          setState('')
+          setCountry('')
+          setZip('')
+          setDescription('')
+      }
+  } , [userProfile])  
   const imageURL = userProfile?.avatar ? `${imageURL}${userProfile.avatar}` : image;
 
   return (
@@ -78,14 +129,14 @@ export default function Profile() {
               fontWeight: 'bold',
               color: '#ffc107',
               textAlign: 'center',
-           
+
             }}>
 
             Edit Profile
           </Typography>
           <Box sx={{ minWidth: 300 }}>
             <Box>
-              <img src={image} alt="image" style={{ width: "140px", height: "140px", borderRadius: "70px" }} />
+              <img src={imageURL} alt="image" style={{ width: "140px", height: "140px", borderRadius: "70px" }} />
             </Box>
             <Stack direction="row" alignItems="center" >
               <label htmlFor="contained-button-file">
@@ -93,7 +144,10 @@ export default function Profile() {
                   accept="image/*"
                   id="contained-button-file"
                   type="file"
-
+                  onChange={(e) => {
+                    setImage(e.target.files[0]
+                    )
+                  }}
                 />
                 <Button variant="contained" component="span"
                   color="primary"  >
@@ -110,15 +164,20 @@ export default function Profile() {
                 type="text"
                 placeholder='Enter Name'
                 focused
+                value={name}
+                onChange={(e) => { setName(e.target.value) }}
 
               />
             </Box>
             <Box sx={{ minWidth: 300 }}>
               <TextField
                 label="email "
-                type="email "
+                type="email"
                 placeholder='Enter email '
                 focused
+                aria-readonly
+                value={email}
+                onChange={(e) => { setEmail(e.target.value) }}
 
               />
             </Box>
@@ -128,7 +187,11 @@ export default function Profile() {
                 type="number"
                 placeholder='Enter phone'
                 focused
-
+                value={phone}
+                onChange={(e) => {
+                  setPhone(e.target.value
+                  )
+                }}
               />
             </Box>
           </Stack>
@@ -136,10 +199,14 @@ export default function Profile() {
             <Box sx={{ minWidth: 300 }}>
               <TextField
                 label="address"
-                type="textarea"
+                type="text"
                 placeholder='Enter address Here'
                 focused
-
+                value={address}
+                onChange={(e) => {
+                  setAddress(e.target.value
+                  )
+                }}
               />
             </Box>
             <Box sx={{ minWidth: 300 }}>
@@ -148,7 +215,11 @@ export default function Profile() {
                 type="text"
                 placeholder='Enter city'
                 focused
-
+                value={city}
+                onChange={(e) => {
+                  setCity(e.target.value
+                  )
+                }}
               />
             </Box>
             <Box sx={{ minWidth: 300 }}>
@@ -157,7 +228,11 @@ export default function Profile() {
                 type="text"
                 placeholder='Enter state'
                 focused
-
+                value={state}
+                onChange={(e) => {
+                  setState(e.target.value
+                  )
+                }}
               />
             </Box>
 
@@ -166,10 +241,14 @@ export default function Profile() {
             <Box sx={{ minWidth: 300 }}>
               <TextField
                 label="country"
-                type="textarea"
+                type="text"
                 placeholder='Enter country Here'
                 focused
-
+                value={country}
+                onChange={(e) => {
+                  setCountry(e.target.value
+                  )
+                }}
               />
             </Box>
             <Box sx={{ minWidth: 300 }}>
@@ -178,7 +257,11 @@ export default function Profile() {
                 type="text"
                 placeholder='Enter zip'
                 focused
-
+                value={zip}
+                onChange={(e) => {
+                  setZip(e.target.value
+                  )
+                }}
               />
             </Box>
             <Box sx={{ minWidth: 300 }}>
@@ -187,7 +270,8 @@ export default function Profile() {
                 type="text"
                 placeholder='Enter description'
                 focused
-
+                value={description}
+                onChange={(e) => { setDescription(e.target.value) }}
               />
             </Box>
 
@@ -209,6 +293,8 @@ export default function Profile() {
                   border: '1px solid #ffc107',
                   cursor: 'pointer',
                 }}
+
+                onClick={handleProfile}
               >
                 Edit Profile
               </Button>

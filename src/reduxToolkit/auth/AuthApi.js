@@ -65,3 +65,17 @@ export const GetProfile= createAsyncThunk("auth/userProfile", async (params, { d
 
     return { data, status }
 });
+export const UpdateProfile= createAsyncThunk("auth/updateProfile", async (params, { dispatch, getState }) => {
+
+    console.log(params)
+    let result = await apiInstance.post(`/update-profile`,params).then(function (response) {
+        return response
+    }).catch(function (error) {
+        return error.response
+    })
+    const { data, status } = result
+
+    console.log(result)
+
+    return { data, status }
+});

@@ -172,7 +172,9 @@ const CreateProject = () => {
                                 placeholder='Enter github link here'
                                 focused
                                 value={githubLink}
-                                onChange={(e) => { setGithubLink(e.target.value) }}
+                                onChange={(e) => {
+                                    setGithubLink(e.target.value)
+                                }}
                             />
                         </Box>
                     </Stack>

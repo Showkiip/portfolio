@@ -43,8 +43,6 @@ const Signin = ({ open, setOpen }) => {
       aria-describedby="modal-modal-description"
 
     >
-
-
       <Box sx={style}>
 
         <Stack alignItems="center"
