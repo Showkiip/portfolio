@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import image from "../../../assets/profile.jpeg";
+import profileImage from "../../../assets/profile.jpeg";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import { imageURL } from "../../../config/baseURL";
@@ -39,11 +39,12 @@ export default function Profile() {
   const [country, setCountry] = useState('')
   const [zip, setZip] = useState('')
   const [description, setDescription] = useState('')
+  const [cv, setCV] = useState(null)
 
 const handleProfile = async () => {
 
   let formData = new FormData();
-  formData.append('image', image)
+  formData.append('avatar', image)
   formData.append('name', name)
   formData.append('email', email)
   formData.append('address', address)
@@ -53,9 +54,10 @@ const handleProfile = async () => {
   formData.append('country', country)
   formData.append('zip', zip)
   formData.append('description', description)
+  formData.append('cv', cv)
     console.log(formData)
 
-  dispatch(UpdateProfile({ formData }));
+  dispatch(UpdateProfile( formData ));
 }
   const { userProfile } = useSelector(state => state.auth);
 
@@ -73,8 +75,9 @@ const handleProfile = async () => {
           setCountry(userProfile?.country)
           setZip(userProfile?.zip)
           setDescription(userProfile?.description)
+          setCV(userProfile?.cv)
       } else {
-          setImage(null)
+          setImage('')
           setName('')
           setEmail('')
           setAddress('')
@@ -84,15 +87,18 @@ const handleProfile = async () => {
           setCountry('')
           setZip('')
           setDescription('')
+          setCV('')
       }
   } , [userProfile])  
-  const imageURL = userProfile?.avatar ? `${imageURL}${userProfile.avatar}` : image;
+
+  const profile = userProfile?.avatar ? `${imageURL}${userProfile?.avatar}` : profileImage;
 
   return (
 
     <Card sx={{
       width: '100%',
       maxWidth: '80%',
+      height: 'auto',
       margin: 'auto',
       marginTop: '20px',
       marginBottom: '20px',
@@ -104,8 +110,11 @@ const handleProfile = async () => {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      position: 'relative',
-      overflow: 'hidden',
+      overflow: 'scroll',
+      overflowY: 'scroll',
+      overflowX: 'hidden',
+      WebkitOverflowScrolling: 'touch',
+      
       border: '1px solid #e0e0e0',
 
 
@@ -136,7 +145,7 @@ const handleProfile = async () => {
           </Typography>
           <Box sx={{ minWidth: 300 }}>
             <Box>
-              <img src={imageURL} alt="image" style={{ width: "140px", height: "140px", borderRadius: "70px" }} />
+              <img src={profile} alt="image" style={{ width: "140px", height: "140px", borderRadius: "70px" }} />
             </Box>
             <Stack direction="row" alignItems="center" >
               <label htmlFor="contained-button-file">
@@ -274,6 +283,23 @@ const handleProfile = async () => {
                 onChange={(e) => { setDescription(e.target.value) }}
               />
             </Box>
+
+          </Stack>
+          <Stack gap="30px" direction="row">
+            <Box sx={{ minWidth: 300 }}>
+              <TextField
+                label="CV"
+                type="file"
+                placeholder='Upload CV Here'
+                focused
+                onChange={(e) => {
+                  console.log(e.target.files[0])
+                  setCV(e.target.files[0]
+                  )
+                }}
+              />
+            </Box>
+          
 
           </Stack>
           <Stack gap="30px" direction="row">

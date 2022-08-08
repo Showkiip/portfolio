@@ -37,7 +37,7 @@ export default function Sidebar() {
     // console.log("local storage ........>>>>>>>>", data);
   }, [])
 
-  console.log("getLoginUser ........>>>>>>>>", getLoginUser.id);
+  console.log("getLoginUser ........>>>>>>>>", getLoginUser?.id);
 
 
 
@@ -108,7 +108,7 @@ export default function Sidebar() {
                 className={currentLink === 5 ? "active" : "none"}
                 onClick={() => setCurrentLink(5)}
               >
-                <Link to={"/dashboard/" + getLoginUser.id + "/profile"}
+                <Link to={"/admin/profile"}
                   onClick={() => dispatch(GetProfile())}>
                   <BsFillChatTextFill />
                   <span> Profile</span>
@@ -118,7 +118,7 @@ export default function Sidebar() {
                 className={currentLink === 2 ? "active" : "none"}
                 onClick={() => setCurrentLink(2)}
               >
-                <Link to={"/dashboard/" + getLoginUser.id + "/project"}>
+                <Link to={"/admin/project"}>
                   <RiDashboard2Fill />
                   <span>Create  Project</span>
                 </Link>
@@ -127,7 +127,7 @@ export default function Sidebar() {
                 className={currentLink === 3 ? "active" : "none"}
                 onClick={() => setCurrentLink(3)}
               >
-                <Link to={"/dashboard/" + getLoginUser.id + "/project/list"} onClick={() => {
+                <Link to={"/admin/project/list"} onClick={() => {
                   dispatch(GetProject())
                 }}>
                   <FaAddressCard />
@@ -138,7 +138,7 @@ export default function Sidebar() {
                 className={currentLink === 4 ? "active" : "none"}
                 onClick={() => setCurrentLink(4)}
               >
-                <Link to={"/dashboard/" + getLoginUser.id + "/socialLink"}
+                <Link to={"/admin/socialLink"}
                   onClick={() => {
                     dispatch(EditSocialLink())
                   }}>

@@ -111,6 +111,11 @@
   padding: 0;
 }
 
+img.i-profile 
+{
+    width: '200px';
+    height: '19rem';
+}
 .blur
 {
     position: absolute;

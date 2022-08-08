@@ -40,7 +40,15 @@ font-weight: bold;
     height: 2rem;
     margin-top: 1rem;
 }
-
+.btn-service
+{
+    width: 8rem;
+    height: 1.5rem;
+    margin-top: 1rem;
+    font-weight: bold;
+    font-size: 25px;
+    text-decoration: none;
+}
 .cards{
     position: relative;
 }

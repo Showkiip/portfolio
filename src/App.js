@@ -39,7 +39,7 @@ function App() {
   console.log('ur >>>>>>>>>>>>>', profileUrl)
   useEffect(() => {
     if (isAuthenticate) {
-
+      
     }
     else if (profileUrl) {
       navigate('/profileUrl')
@@ -56,7 +56,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:profileUrl" element={<Home />} />
-        <Route path="dashboard/:id" element={<AdminDashboard />}>
+        <Route path="/admin" element={<AdminDashboard />}>
           <Route path="project" element={<CreateProject />} />
           <Route path="project/list" element={<ListProjects />} />
           <Route path="socialLink" element={<CreateSocialLink />} />

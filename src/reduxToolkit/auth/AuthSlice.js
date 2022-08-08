@@ -27,9 +27,6 @@ const authSlice = createSlice({
                 localStorage.setItem('token', data.data.token);
                 localStorage.setItem('user', JSON.stringify(data.data.user));
                 localStorage.setItem('isAuthenticate', true);
-
-             
-
                 state.loginUser = data?.data
             }
             else if (status >= 400 && status < 500) {

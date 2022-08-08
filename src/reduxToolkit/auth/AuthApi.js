@@ -29,7 +29,7 @@ export const Login = createAsyncThunk("auth/loginUser", async (params, { dispatc
     const { data, status } = result
 
     if (status >= 200 && status < 300) {
-        params?.navigate(`/dashboard/${data?.data.user.id}`);
+        params?.navigate(`/dashboard/${data?.data?.user.id}`);
     }
     console.log(result)
 

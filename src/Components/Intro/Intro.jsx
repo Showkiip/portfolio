@@ -13,6 +13,7 @@ import Crown from '../../img/crown.png'
 import glassesimoji from '../../img/glassesimoji.png'
 import FloatingDev from '../FloatingDiv/FloatingDev'
 import { getUserByID } from '../../reduxToolkit/socialLinks/SocialApi'
+import { imageURL } from '../../config/baseURL'
 
 
 const Intro = () => {
@@ -21,6 +22,7 @@ const Intro = () => {
     const { getUserByID } = useSelector(state => state.user)
     console.log("intro ..........>>>>>>>>>>", getUserByID);
 
+    const profile = getUserByID?.avatar ? `${imageURL}${getUserByID?.avatar}` : boy;
 
     return (
         <div className='intro'>
@@ -55,7 +57,13 @@ const Intro = () => {
             <div className='i-right'>
                 <img src={Vector1} alt="" />
                 <img src={Vector2} alt="" />
-                <img src={boy} alt="" />
+                <img src={profile} alt=""  className='i-profile'
+                    style={{
+                        width: '250px',
+                        height: '20rem',
+                    }}
+                 />
+        
                 <img src={glassesimoji} alt="" />
                 <div style={{ top: '-4%', left: '68%' }}>
                     <FloatingDev image={Crown} text1='Web' text2='Developer' />
